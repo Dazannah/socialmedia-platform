@@ -1,10 +1,9 @@
 const express = require("express")
 const router = express.Router()
 
-const db = require("./db")
+const loginController = require("./controller/login")
 
-router.get("/", (req, res) => {
-  res.send("index.html")
-})
+//authentication
+router.post("/login", loginController.login)
 
 module.exports = router
