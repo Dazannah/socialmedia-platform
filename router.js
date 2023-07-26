@@ -1,12 +1,12 @@
 const express = require("express")
 const router = express.Router()
 
-const loginController = require("./controller/login")
+const userController = require("./controller/user")
 
 //authentication
-router.post("/register-email", loginController.registerEmail)
-router.post("/register-cardano", loginController.registerCardano)
-router.post("/login-email", loginController.loginEmail)
-router.post("/login-cardano", loginController.loginCardano)
+router.post("/register-email", userController.registerEmail)
+router.post("/register-cardano", userController.registerCardano)
+router.post("/login-email", userController.loginEmail)
+router.post("/login-cardano", userController.loginCardano)
 
 module.exports = router
