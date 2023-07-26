@@ -10,10 +10,12 @@ async function registerEmail(req, res) {
     const register = new RegisterEmail(username, password, email)
     register.validate()
     await register.findExisting()
+    await register.encryptPassword()
+    register.prepareDataToSave()
+    await register.save()
 
-    res.status(201).json("ok")
+    res.status(201).json("Successful registration.")
   } catch (err) {
-    console.log(err)
     res.status(err.status).json(err.data)
   }
 }
@@ -23,6 +25,10 @@ async function registerCardano(req, res) {
 }
 
 async function loginEmail(req, res) {
+  try {
+  } catch (err) {
+    res.status(err.status).json(err.data)
+  }
   console.log(req.body)
   res.status(200).json("ok")
 }
