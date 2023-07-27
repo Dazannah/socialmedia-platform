@@ -1,10 +1,8 @@
-const registrationInterface = require("../interfaces/registration")
-
-const RegisterCardano = require("../module/RegisterCardano")
+const userInterface = require("../interfaces/user")
 
 async function registerEmail(req, res, next) {
   try {
-    await registrationInterface.registrationWithEmail(req.body)
+    await userInterface.registrationWithEmail(req.body)
 
     res.status(201).json("Successful registration.")
   } catch (err) {
@@ -12,21 +10,20 @@ async function registerEmail(req, res, next) {
   }
 }
 
-async function registerCardano(req, res) {
-  const register = new RegisterCardano()
-}
+async function registerCardano(req, res) {}
 
 async function loginEmail(req, res) {
   try {
+    const token = await userInterface.loginWithEmail(req.body)
+
+    res.status(200).json({ message: "Successful login.", token })
   } catch (err) {
+    console.log(err)
     res.status(err.status).json(err.data)
   }
-  res.status(200).json("ok")
 }
 
-async function loginCardano(req, res) {
-  res.status(200).json("ok")
-}
+async function loginCardano(req, res) {}
 
 module.exports = {
   registerEmail,

@@ -1,7 +1,9 @@
 const ValidateEmailRegistration = require("../module/ValidateEmailRegistration")
-const PasswordHash = require("../module/PasswordHash")
+const ValidateEmailLogin = require("../module/ValidateEmailLogin")
+const { PasswordHash } = require("../module/PasswordHash")
 const { SerializeEmailRegistrationData } = require("../module/Serialization")
-const { DatabaseSave } = require("../module/Database")
+const { DatabaseSave, DatabaseFind } = require("../module/Database")
+const { generateJwt } = require("../utils/jwt")
 
 async function registrationWithEmail(body) {
   const username = body.username
@@ -22,6 +24,19 @@ async function registrationWithEmail(body) {
   await databaseSave.saveOne()
 }
 
+async function loginWithEmail(body) {
+  const username = body.username
+  const password = body.password
+
+  const validateEmailLogin = new ValidateEmailLogin(username, password)
+  validateEmailLogin.validateInputs()
+  await validateEmailLogin.isUserExist()
+  await validateEmailLogin.isPasswordValid()
+
+  return generateJwt(username)
+}
+
 module.exports = {
-  registrationWithEmail
+  registrationWithEmail,
+  loginWithEmail
 }

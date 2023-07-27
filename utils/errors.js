@@ -3,6 +3,7 @@ function throwErrorArray(errorData, statusCode) {
     const error = new Error()
     error.data = errorData
     error.status = statusCode
+    console.log(error)
     throw error
   }
 }

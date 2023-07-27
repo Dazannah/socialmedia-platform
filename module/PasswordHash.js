@@ -17,4 +17,21 @@ class PasswordHash {
   }
 }
 
-module.exports = PasswordHash
+class PasswordCompare {
+  constructor(password, passwordToCompare) {
+    this.password = password
+    this.passwordToCompare = passwordToCompare
+  }
+
+  async comparePassword() {
+    try {
+      return await bcrypt.compare(this.password, this.passwordToCompare)
+    } catch (err) {
+      const error = new Error(err)
+      error.status = 500
+      throw error
+    }
+  }
+}
+
+module.exports = { PasswordHash, PasswordCompare }

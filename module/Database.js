@@ -6,6 +6,7 @@ class DatabaseSave {
   constructor(collection, data) {
     this.collection = db.collection(collection)
     this.data = data
+    this.error = []
   }
 
   async saveOne() {
@@ -28,6 +29,16 @@ class DatabaseFind {
   async findWithQuerry() {
     try {
       return await this.collection.find(this.querry).toArray()
+    } catch (err) {
+      const error = new Error(err)
+      error.status = 500
+      throw error
+    }
+  }
+
+  async findOneWithQuerry() {
+    try {
+      return await this.collection.findOne(this.querry)
     } catch (err) {
       const error = new Error(err)
       error.status = 500

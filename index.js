@@ -17,8 +17,4 @@ app.use("/", router)
 
 const server = require("http").createServer(app)
 
-app.use((err, req, res, next) => {
-  res.status(err.status).json(err.data)
-})
-
 module.exports = server
