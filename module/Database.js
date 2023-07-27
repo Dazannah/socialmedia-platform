@@ -1,21 +1,39 @@
 const { ObjectID } = require("mongodb")
-const { throwError } = require("../utils/errors")
 
 const db = require("../db")
 
-class Database {
-  constructor(data, collection) {
+class DatabaseSave {
+  constructor(collection, data) {
+    this.collection = db.collection(collection)
     this.data = data
-    this.collection = collection
   }
 
-  async save() {
+  async saveOne() {
     try {
-      await db.collection(this.collection).insertOne(this.data)
+      await this.collection.insertOne(this.data)
     } catch (err) {
-      throwError(err, 500)
+      const error = new Error(err)
+      error.status = 500
+      throw error
     }
   }
 }
 
-module.exports = Database
+class DatabaseFind {
+  constructor(collection, querry) {
+    this.collection = db.collection(collection)
+    this.querry = querry
+  }
+
+  async findWithQuerry() {
+    try {
+      return await this.collection.find(this.querry).toArray()
+    } catch (err) {
+      const error = new Error(err)
+      error.status = 500
+      throw error
+    }
+  }
+}
+
+module.exports = { DatabaseSave, DatabaseFind }
