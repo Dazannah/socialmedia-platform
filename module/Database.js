@@ -10,13 +10,7 @@ class DatabaseSave {
   }
 
   async saveOne() {
-    try {
-      await this.collection.insertOne(this.data)
-    } catch (err) {
-      const error = new Error(err)
-      error.status = 500
-      throw error
-    }
+    await this.collection.insertOne(this.data)
   }
 }
 
@@ -27,23 +21,11 @@ class DatabaseFind {
   }
 
   async findWithQuerry() {
-    try {
-      return await this.collection.find(this.querry).toArray()
-    } catch (err) {
-      const error = new Error(err)
-      error.status = 500
-      throw error
-    }
+    return await this.collection.find(this.querry).toArray()
   }
 
   async findOneWithQuerry() {
-    try {
-      return await this.collection.findOne(this.querry)
-    } catch (err) {
-      const error = new Error(err)
-      error.status = 500
-      throw error
-    }
+    return await this.collection.findOne(this.querry)
   }
 }
 
