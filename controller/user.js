@@ -1,8 +1,8 @@
-const userInterface = require("../interfaces/user")
+const userHelperFunction = require("../helperFunction/user")
 
 async function registerEmail(req, res, next) {
   try {
-    await userInterface.registrationWithEmail(req.body)
+    await userHelperFunction.registrationWithEmail(req.body)
 
     res.status(201).json("Successful registration.")
   } catch (err) {
@@ -14,7 +14,7 @@ async function registerCardano(req, res) {}
 
 async function loginEmail(req, res) {
   try {
-    const token = await userInterface.loginWithEmail(req.body)
+    const token = await userHelperFunction.loginWithEmail(req.body)
 
     res.status(200).json({ message: "Successful login.", token })
   } catch (err) {

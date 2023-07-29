@@ -32,12 +32,7 @@ class ValidateEmailRegistration {
     const databaseWithQuerry = new DatabaseFind("users", { $or: [{ username: this.username }, { email: this.email }] })
     const result = await databaseWithQuerry.findWithQuerry()
 
-    if (result.length > 0) {
-      result.forEach(element => {
-        if (element.username === this.username) this.error.push("This username is already in use.")
-        if (element.email === this.email) this.error.push("This e-mail address is already in use.")
-      })
-    }
+    if (result.length > 0) this.error.push("This username/e-mail is already in use.")
 
     throwErrorArray(this.error, 409)
   }
