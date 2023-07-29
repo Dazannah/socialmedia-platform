@@ -12,6 +12,11 @@ async function createPost(data) {
   await createPost.savePost()
 }
 
+async function findPost(data) {
+  console.log(data)
+}
+
 module.exports = {
-  createPost
+  createPost,
+  findPost
 }

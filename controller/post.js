@@ -10,6 +10,17 @@ async function createPost(req, res, next) {
   }
 }
 
+async function findPost(req, res, next) {
+  try {
+    const post = await postHelperFunction.createPost(req.body)
+
+    res.status(200).json(post)
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
-  createPost
+  createPost,
+  findPost
 }
