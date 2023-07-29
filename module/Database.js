@@ -1,4 +1,4 @@
-const { ObjectID } = require("mongodb")
+const { ObjectId } = require("mongodb")
 
 const db = require("../db")
 
@@ -26,6 +26,11 @@ class DatabaseFind {
 
   async findOneWithQuerry() {
     return await this.collection.findOne(this.querry)
+  }
+
+  async findOneById() {
+    this.querry = { _id: new ObjectId(this.querry._id) }
+    return await this.findOneWithQuerry()
   }
 }
 
