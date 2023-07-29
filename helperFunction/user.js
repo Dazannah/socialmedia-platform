@@ -34,7 +34,7 @@ async function loginWithEmail(body) {
   await validateEmailLogin.isUserExist()
   await validateEmailLogin.isPasswordValid()
 
-  return generateJwt(username)
+  return generateJwt({ username: username })
 }
 
 module.exports = {
