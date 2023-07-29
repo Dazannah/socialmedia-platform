@@ -30,6 +30,7 @@ class DatabaseFind {
 
   async findOneById() {
     this.querry = { _id: new ObjectId(this.querry._id) }
+
     return await this.findOneWithQuerry()
   }
 }
