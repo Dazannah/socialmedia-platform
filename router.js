@@ -1,22 +1,34 @@
 const express = require("express")
 const router = express.Router()
 
-const userController = require("./controller/user")
+const registrationController = require("./controller/registration")
 const postController = require("./controller/post")
 const loginController = require("./controller/login")
 
 //authentication
-router.post("/register-email", userController.registerEmail)
+router.post("/register-email", registrationController.registerEmail)
 //router.post("/register-cardano", userController.registerCardano)
-router.post("/login-email", userController.loginEmail)
+router.post("/login-email", registrationController.loginEmail)
 //router.post("/login-cardano", userController.loginCardano)
 
 //protected routes
-
 router.use(loginController.validateLogin)
+
+//profile
+//router.get("/profile/:username")
+//router.get("/profile/:username/followers")
+//router.get("/profile/:username/following")
 
 //posts
 router.post("/create-post", postController.createPost)
+//router.get("/post/:id")
+//router.post("/post/:id/edit")
+//router.post("/post/:id/delete")
+//router.post("/search")
+
+//follow
+//router.post("/addFollow/:username")
+//router.post("/removeFollow/:username")
 
 router.use("*", (req, res) => {
   res.status(404).json("Page not found.")
