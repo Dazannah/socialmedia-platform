@@ -3,7 +3,7 @@ function throwErrorArray(errorData, statusCode) {
     const error = new Error()
     error.data = errorData
     error.status = statusCode
-    res.status(err.status).json(err.data)
+    throw error
   }
 }
 
@@ -11,7 +11,7 @@ function throwErrorSingle(errorData, statusCode) {
   const error = new Error()
   error.data = errorData
   error.status = statusCode
-  res.status(err.status).json(err.data)
+  throw error
 }
 
 module.exports = {
