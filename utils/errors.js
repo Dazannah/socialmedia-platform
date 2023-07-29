@@ -3,11 +3,18 @@ function throwErrorArray(errorData, statusCode) {
     const error = new Error()
     error.data = errorData
     error.status = statusCode
-    console.log(error)
     throw error
   }
 }
 
+function throwErrorSingle(errorData, statusCode) {
+  const error = new Error()
+  error.data = errorData
+  error.status = statusCode
+  throw error
+}
+
 module.exports = {
-  throwErrorArray
+  throwErrorArray,
+  throwErrorSingle
 }
