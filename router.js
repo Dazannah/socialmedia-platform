@@ -11,8 +11,12 @@ router.post("/register-email", userController.registerEmail)
 router.post("/login-email", userController.loginEmail)
 //router.post("/login-cardano", userController.loginCardano)
 
+//protected routes
+
+router.use(loginController.validateLogin)
+
 //posts
-router.post("/create-post", loginController.validateLogin, postController.createPost)
+router.post("/create-post", postController.createPost)
 
 router.use("*", (req, res) => {
   res.status(404).json("Page not found.")
