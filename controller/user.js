@@ -6,20 +6,19 @@ async function registerEmail(req, res, next) {
 
     res.status(201).json("Successful registration.")
   } catch (err) {
-    res.status(err.status).json(err.data)
+    next(err)
   }
 }
 
-async function registerCardano(req, res) {}
+async function registerCardano(req, res, next) {}
 
-async function loginEmail(req, res) {
+async function loginEmail(req, res, next) {
   try {
     const token = await userHelperFunction.loginWithEmail(req.body)
 
     res.status(200).json({ message: "Successful login.", token, isLogedIn: true })
   } catch (err) {
-    console.log(err)
-    res.status(err.status).json(err.data)
+    next(err)
   }
 }
 

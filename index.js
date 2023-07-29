@@ -15,6 +15,11 @@ app.get("/", (req, res) => {
 
 app.use("/", router)
 
+app.use((err, req, res, next) => {
+  console.log(err)
+  res.status(500).json("Something went wrong.")
+})
+
 const server = require("http").createServer(app)
 
 module.exports = server
