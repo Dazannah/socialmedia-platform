@@ -2,9 +2,10 @@ const { DatabaseFind } = require("../module/Database")
 const { throwErrorArray } = require("../utils/errors")
 
 class ValidateEmailRegistration {
-  constructor(username, password, email) {
+  constructor(username, password, passwordRepeate, email) {
     this.username = username
     this.password = password
+    this.passwordRepeate = passwordRepeate
     this.email = email
     this.error = []
   }
@@ -12,10 +13,11 @@ class ValidateEmailRegistration {
   validateUsernamePasswordEmail() {
     if (this.username === undefined || this.username === null || this.username.trim() === "") this.error.push("You must provide a username.")
     if (this.password === undefined || this.password === null || this.password === "") this.error.push("You must provide a password.")
+    if (this.password != this.passwordRepeate) this.error.push("The password must match.")
 
-    const capitalCaseRegex = /[A-Z0-9]/
-    if (!capitalCaseRegex.test(this.password)) this.error.push("At least one upper case letter and a number have to be used.")
-    if (this.password.length < 8) this.error.push("The password have to be at least 8 character long.")
+    //validate password
+    const capitalCaseRegex = /^(?=.*\d)[A-Z0-9].{8,16}$/
+    if (!capitalCaseRegex.test(this.password)) this.error.push("The password must have at least one upper case letter and a number, and the length hase to be between 8 and 16 letter.")
 
     //validate email
     if (this.email === undefined || this.email === null || this.email === "") this.error.push("You must provide an e-mail address.")

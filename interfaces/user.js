@@ -8,9 +8,10 @@ const { generateJwt } = require("../utils/jwt")
 async function registrationWithEmail(body) {
   const username = body.username
   const password = body.password
+  const passwordRepeate = body.passwordRepeate
   const email = body.email
 
-  const validate = new ValidateEmailRegistration(username, password, email)
+  const validate = new ValidateEmailRegistration(username, password, passwordRepeate, email)
   validate.validateUsernamePasswordEmail()
   await validate.findIfExistUsernameEmail()
 
