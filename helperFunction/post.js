@@ -1,9 +1,15 @@
+const CreatePost = require("../module/CreatePost")
+
 async function createPost(data) {
   const username = data.username
-  const title = data.postTitle
+  const postTitle = data.postTitle
   const postBody = data.postBody
-  const createDate = new Date()
-  console.log(username, title, postBody, createDate)
+  const postCreateDate = new Date()
+
+  const createPost = new CreatePost(username, postTitle, postBody, postCreateDate)
+  createPost.validatePostForCreate()
+  await createPost.getUserId()
+  await createPost.savePost()
 }
 
 module.exports = {
