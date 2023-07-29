@@ -1,4 +1,3 @@
-const { throwErrorSingle } = require("../utils/errors")
 const ValidateLogin = require("../module/ValidateLogin")
 
 async function validateLogin(authHeader) {
