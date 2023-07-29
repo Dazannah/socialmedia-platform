@@ -2,7 +2,7 @@ const ValidateEmailRegistration = require("../module/ValidateEmailRegistration")
 const ValidateEmailLogin = require("../module/ValidateEmailLogin")
 const { PasswordHash } = require("../module/PasswordHash")
 const { SerializeEmailRegistrationData } = require("../module/Serialization")
-const { DatabaseSave, DatabaseFind } = require("../module/Database")
+const { DatabaseSave } = require("../module/Database")
 const { generateJwt } = require("../utils/jwt")
 
 async function registrationWithEmail(body) {
