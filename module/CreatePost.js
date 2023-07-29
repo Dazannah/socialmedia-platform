@@ -27,7 +27,7 @@ class CreatePost {
   }
 
   async savePost() {
-    const databaseSave = new DatabaseSave("userCreatedPosts", { postTitle: this.postTitle, postBody: this.postBody, postCreateDate: this.postCreateDate, user: this.user_id })
+    const databaseSave = new DatabaseSave("userCreatedPosts", { postTitle: this.postTitle, postBody: this.postBody, postCreateDate: this.postCreateDate, author: this.user_id })
     await databaseSave.saveOne()
   }
 }

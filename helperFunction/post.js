@@ -1,4 +1,5 @@
 const CreatePost = require("../module/CreatePost")
+const FindPost = require("../module/FindPost")
 
 async function createPost(data) {
   const username = data.username
@@ -13,7 +14,15 @@ async function createPost(data) {
 }
 
 async function findPost(data) {
-  console.log(data)
+  const postId = data.params.id
+
+  const findPost = new FindPost(postId)
+  findPost.validatePostId()
+  await findPost.findPost()
+  await findPost.findAuthorUsername()
+  const post = findPost.getDataToSend()
+
+  return post
 }
 
 module.exports = {
