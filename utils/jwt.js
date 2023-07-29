@@ -6,7 +6,7 @@ function generateJwt(data) {
     {
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 60, //1 day
       data: {
-        data
+        username: data.username
       }
     },
     process.env.JWTSECRET
