@@ -25,6 +25,7 @@ class ValidateEmailLogin {
 
     throwErrorArray(this.error, 409)
 
+    this.userId = isUserExist._id.toString()
     this.passwordToCompare = isUserExist.password
   }
 
