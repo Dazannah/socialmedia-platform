@@ -49,10 +49,10 @@ async function deletePost(data) {
   await deletePost.deletePost()
 }
 
-async function searchPostByContent(data) {
+async function searchPostByBody(data) {
   const searchField = data.body.searchField
 
-  const searchPostByContent = new SearchPostByContent(searchField)
+  const searchPostByContent = new SearchPostByContent("postBody", searchField)
   searchPostByContent.createQuerry()
   const foundPosts = await searchPostByContent.findPosts()
 
@@ -64,5 +64,5 @@ module.exports = {
   findPostById,
   editPost,
   deletePost,
-  searchPostByContent
+  searchPostByBody
 }

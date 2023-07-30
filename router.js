@@ -24,7 +24,7 @@ router.post("/create-post", postController.createPost)
 router.get("/post/:id", postController.findPostById)
 router.patch("/post/:id/edit", postController.editPost)
 router.delete("/post/:id/delete", postController.deletePost)
-router.post("/search-post", postController.searchPostByContent)
+router.post("/search-post-body", postController.searchPostByBody)
 
 //follow
 //router.post("/addFollow/:username")

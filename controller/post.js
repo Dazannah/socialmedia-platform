@@ -40,9 +40,9 @@ async function deletePost(req, res, next) {
   }
 }
 
-async function searchPostByContent(req, res, next) {
+async function searchPostByBody(req, res, next) {
   try {
-    const foundPosts = await postHelperFunction.searchPostByContent(req)
+    const foundPosts = await postHelperFunction.searchPostByBody(req)
 
     res.status(200).json(foundPosts)
   } catch (err) {
@@ -55,5 +55,5 @@ module.exports = {
   findPostById,
   editPost,
   deletePost,
-  searchPostByContent
+  searchPostByBody
 }

@@ -112,13 +112,14 @@ class DeletePost {
 }
 
 class SearchPostByContent {
-  constructor(searchField) {
+  constructor(searchInThis, searchField) {
+    this.searchInThis = searchInThis
     this.searchField = searchField
   }
 
   createQuerry() {
     const regex = new RegExp(this.searchField)
-    this.querry = { postBody: { $regex: regex } }
+    this.querry = { [this.searchInThis]: { $regex: regex } }
   }
 
   async findPosts() {
