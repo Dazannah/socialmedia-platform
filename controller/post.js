@@ -20,7 +20,18 @@ async function findPost(req, res, next) {
   }
 }
 
+async function editPost(req, res, next) {
+  try {
+    await postHelperFunction.editPost(req)
+
+    res.status(200).json("Post was successfully edited.")
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
   createPost,
-  findPost
+  findPost,
+  editPost
 }

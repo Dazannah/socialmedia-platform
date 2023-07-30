@@ -1,5 +1,4 @@
-const CreatePost = require("../module/CreatePost")
-const FindPost = require("../module/FindPost")
+const { CreatePost, FindPost, EditPost } = require("../module/Post")
 
 async function createPost(data) {
   const username = data.username
@@ -8,7 +7,7 @@ async function createPost(data) {
   const postCreateDate = new Date()
 
   const createPost = new CreatePost(username, postTitle, postBody, postCreateDate)
-  createPost.validatePostForCreate()
+  createPost.validatePost()
   await createPost.getUserId()
   await createPost.savePost()
 }
@@ -25,7 +24,21 @@ async function findPost(data) {
   return post
 }
 
+async function editPost(data) {
+  const postTitle = data.body.postTitle
+  const postBody = data.body.postBody
+  const username = data.body.username
+
+  const originalPost = await findPost(data)
+
+  const editPost = new EditPost(username, postTitle, postBody, originalPost)
+  editPost.checkOwnership()
+  editPost.validatePost()
+  await editPost.updatePost()
+}
+
 module.exports = {
   createPost,
-  findPost
+  findPost,
+  editPost
 }
