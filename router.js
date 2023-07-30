@@ -4,6 +4,7 @@ const router = express.Router()
 const registrationController = require("./controller/registration")
 const postController = require("./controller/post")
 const loginController = require("./controller/login")
+const followController = require("./controller/follow")
 
 //authentication
 router.post("/register-email", registrationController.registerEmail)
@@ -27,7 +28,7 @@ router.delete("/post/:id/delete", postController.deletePost)
 router.post("/search-post-body", postController.searchPostByBody)
 
 //follow
-//router.post("/addFollow/:username")
+router.post("/add-follow/:username", followController.addFollow)
 //router.post("/removeFollow/:username")
 
 router.use("*", (req, res) => {
