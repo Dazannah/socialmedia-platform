@@ -9,7 +9,9 @@ async function createPost(data) {
   const createPost = new CreatePost(username, postTitle, postBody, postCreateDate)
   createPost.validatePost()
   await createPost.getUserId()
-  await createPost.savePost()
+  const createdPostId = await createPost.savePost()
+
+  return createdPostId
 }
 
 async function findPost(data) {

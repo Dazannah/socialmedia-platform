@@ -35,7 +35,9 @@ class CreatePost extends Post {
 
   async savePost() {
     const databaseSave = new DatabaseSave("userCreatedPosts", { postTitle: this.postTitle, postBody: this.postBody, postCreateDate: this.postCreateDate, author: this.user_id })
-    await databaseSave.saveOne()
+    const createdPost = await databaseSave.saveOne()
+
+    return createdPost.insertedId
   }
 }
 
@@ -51,7 +53,6 @@ class EditPost extends Post {
   }
 
   async updatePost() {
-    console.log(this.originalPost)
     const databaseUpdate = new DatabaseUpdate("userCreatedPosts", this.originalPost._id, { postTitle: this.postTitle, postBody: this.postBody })
     await databaseUpdate.updateOne()
   }

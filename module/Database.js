@@ -10,7 +10,7 @@ class DatabaseSave {
   }
 
   async saveOne() {
-    await this.collection.insertOne(this.data)
+    return await this.collection.insertOne(this.data)
   }
 }
 
