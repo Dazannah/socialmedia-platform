@@ -10,6 +10,17 @@ async function addFollow(req, res, next) {
   }
 }
 
+async function removeFollow(req, res, next) {
+  try {
+    const removedFollow = await followHelperFunction.removeFollow(req)
+
+    res.status(200).json(`You stopped following ${removedFollow}`)
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
-  addFollow
+  addFollow,
+  removeFollow
 }

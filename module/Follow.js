@@ -1,16 +1,16 @@
-const { DatabaseFind, DatabaseSave } = require("./Database")
+const { DatabaseFind, DatabaseSave, DatabaseDeleteWithQuerry } = require("./Database")
 const { throwErrorArray } = require("../utils/errors")
 const { ObjectId } = require("mongodb")
 
 class Follow {
-  constructor(userId, usernameToFollow) {
+  constructor(userId, followUsername) {
     this.userId = userId
-    this.usernameToFollow = usernameToFollow
+    this.followUsername = followUsername
     this.error = []
   }
 
   generateQuerry() {
-    const regex = new RegExp(`^${this.usernameToFollow}$`, "i")
+    const regex = new RegExp(`^${this.followUsername}$`, "i")
     this.querry = { username: { $regex: regex } }
   }
 
@@ -24,11 +24,27 @@ class Follow {
     this.userIdToFollow = userToFollow._id
   }
 
-  async isAlreadyFollow() {
+  async isFollowing() {
     const databaseFind = new DatabaseFind("follow", { $and: [{ userId: new ObjectId(this.userId) }, { followedId: new ObjectId(this.userIdToFollow) }] })
     const alreadyFollow = await databaseFind.findOneWithQuerry()
 
-    if (alreadyFollow) this.error.push(`You already follow ${this.usernameToFollow}`)
+    if (alreadyFollow) {
+      return true
+    } else {
+      return false
+    }
+  }
+}
+
+class StartFollow extends Follow {
+  constructor(userId, usernameToFollow) {
+    super(userId, usernameToFollow)
+  }
+
+  async isAlreadyFollow() {
+    const alreadyFollow = await this.isFollowing()
+
+    if (alreadyFollow) this.error.push(`You already follow ${this.followUsername}`)
     throwErrorArray(this.error, 200)
   }
 
@@ -45,4 +61,29 @@ class Follow {
   }
 }
 
-module.exports = Follow
+class StopFollow extends Follow {
+  constructor(userId, usernameToStopFollow) {
+    super(userId, usernameToStopFollow)
+  }
+
+  async isFollow() {
+    const alreadyFollow = await this.isFollowing()
+
+    if (!alreadyFollow) this.error.push(`You don't follow ${this.followUsername}`)
+    throwErrorArray(this.error, 200)
+  }
+
+  generateQuerryForDelete() {
+    this.querryForDelete = {
+      userId: new ObjectId(this.userId),
+      followedId: new ObjectId(this.userIdToFollow)
+    }
+  }
+
+  async delete() {
+    const databaseDeleteWithQuerry = new DatabaseDeleteWithQuerry("follow", this.querryForDelete)
+    await databaseDeleteWithQuerry.deleteOne()
+  }
+}
+
+module.exports = { Follow, StartFollow, StopFollow }

@@ -58,9 +58,21 @@ class DatabaseDelete {
   }
 }
 
+class DatabaseDeleteWithQuerry {
+  constructor(collection, querry) {
+    this.collection = db.collection(collection)
+    this.querry = querry
+  }
+
+  async deleteOne() {
+    await this.collection.findOneAndDelete(this.querry)
+  }
+}
+
 module.exports = {
   DatabaseSave,
   DatabaseFind,
   DatabaseUpdate,
-  DatabaseDelete
+  DatabaseDelete,
+  DatabaseDeleteWithQuerry
 }
