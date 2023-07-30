@@ -8,7 +8,7 @@ const loginController = require("./controller/login")
 //authentication
 router.post("/register-email", registrationController.registerEmail)
 //router.post("/register-cardano", userController.registerCardano)
-router.post("/login-email", registrationController.loginEmail)
+router.post("/login-email", loginController.loginEmail)
 //router.post("/login-cardano", userController.loginCardano)
 
 //protected routes
