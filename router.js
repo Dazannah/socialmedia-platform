@@ -28,8 +28,8 @@ router.delete("/post/:id/delete", postController.deletePost)
 router.post("/search-post-body", postController.searchPostByBody)
 
 //follow
-router.post("/add-follow/:username", followController.addFollow)
-//router.post("/removeFollow/:username")
+router.post("/start-follow/:username", followController.addFollow)
+router.delete("/stop-follow/:username", followController.removeFollow)
 
 router.use("*", (req, res) => {
   res.status(404).json("Page not found.")
