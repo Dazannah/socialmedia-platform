@@ -30,8 +30,19 @@ async function editPost(req, res, next) {
   }
 }
 
+async function deletePost(req, res, next) {
+  try {
+    await postHelperFunction.deletePost(req)
+
+    res.status(200).json("Post was successfully deleted.")
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
   createPost,
   findPost,
-  editPost
+  editPost,
+  deletePost
 }

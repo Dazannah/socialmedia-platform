@@ -43,9 +43,24 @@ class DatabaseUpdate {
   }
 
   async updateOne() {
-    console.log(this.data)
     await this.collection.updateOne({ _id: new ObjectId(this.idToUpdate) }, { $set: this.data })
   }
 }
 
-module.exports = { DatabaseSave, DatabaseFind, DatabaseUpdate }
+class DatabaseDelete {
+  constructor(collection, idToDelete) {
+    this.collection = db.collection(collection)
+    this.idToDelete = idToDelete
+  }
+
+  async deleteOne() {
+    await this.collection.deleteOne({ _id: new ObjectId(this.idToDelete) })
+  }
+}
+
+module.exports = {
+  DatabaseSave,
+  DatabaseFind,
+  DatabaseUpdate,
+  DatabaseDelete
+}

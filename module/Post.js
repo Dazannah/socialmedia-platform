@@ -1,5 +1,5 @@
 const { throwErrorArray, throwErrorSingle } = require("../utils/errors")
-const { DatabaseFind, DatabaseSave, DatabaseUpdate } = require("./Database")
+const { DatabaseFind, DatabaseSave, DatabaseUpdate, DatabaseDelete } = require("./Database")
 const { ObjectId } = require("mongodb")
 
 class Post {
@@ -90,9 +90,30 @@ class FindPost {
   }
 }
 
+class DeletePost {
+  constructor(username, postId, originalPost) {
+    this.username = username
+    this.postId = postId
+    this.originalPost = originalPost
+    this.error = []
+  }
+
+  checkOwnership() {
+    if (this.username != this.originalPost.author) this.error.push("You don't have authorization to delete this post.")
+
+    throwErrorArray(this.error, 403)
+  }
+
+  async deletePost() {
+    const databaseDelete = new DatabaseDelete("userCreatedPosts", this.postId)
+    await databaseDelete.deleteOne()
+  }
+}
+
 module.exports = {
   Post,
   CreatePost,
   FindPost,
-  EditPost
+  EditPost,
+  DeletePost
 }

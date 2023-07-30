@@ -1,4 +1,4 @@
-const { CreatePost, FindPost, EditPost } = require("../module/Post")
+const { CreatePost, FindPost, EditPost, DeletePost } = require("../module/Post")
 
 async function createPost(data) {
   const username = data.username
@@ -37,8 +37,19 @@ async function editPost(data) {
   await editPost.updatePost()
 }
 
+async function deletePost(data) {
+  const postId = data.params.id
+  const username = data.body.username
+
+  const originalPost = await findPost(data)
+  const deletePost = new DeletePost(username, postId, originalPost)
+  deletePost.checkOwnership()
+  await deletePost.deletePost()
+}
+
 module.exports = {
   createPost,
   findPost,
-  editPost
+  editPost,
+  deletePost
 }
