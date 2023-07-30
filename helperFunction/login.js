@@ -20,9 +20,9 @@ async function validateLogin(authHeader) {
   const validateLogin = new ValidateLogin(authHeader)
   validateLogin.checkIfAuthHeaderExist()
   validateLogin.getJwt()
-  const username = await validateLogin.validateJwt()
+  const jwtData = await validateLogin.validateJwt()
 
-  return username
+  return jwtData
 }
 
 module.exports = {

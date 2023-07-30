@@ -18,7 +18,7 @@ class ValidateLogin {
   async validateJwt() {
     try {
       const result = jwt.verify(this.token, process.env.JWTSECRET)
-      return result.data.username
+      return result.data
     } catch (err) {
       throwErrorSingle("Invalid JSON Web Token.", 401)
     }
