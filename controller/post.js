@@ -10,9 +10,9 @@ async function createPost(req, res, next) {
   }
 }
 
-async function findPost(req, res, next) {
+async function findPostById(req, res, next) {
   try {
-    const post = await postHelperFunction.findPost(req)
+    const post = await postHelperFunction.findPostById(req)
 
     res.status(200).json(post)
   } catch (err) {
@@ -40,9 +40,20 @@ async function deletePost(req, res, next) {
   }
 }
 
+async function searchPostByContent(req, res, next) {
+  try {
+    const foundPosts = await postHelperFunction.searchPostByContent(req)
+
+    res.status(200).json(foundPosts)
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
   createPost,
-  findPost,
+  findPostById,
   editPost,
-  deletePost
+  deletePost,
+  searchPostByContent
 }

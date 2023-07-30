@@ -58,7 +58,7 @@ class EditPost extends Post {
   }
 }
 
-class FindPost {
+class FindPostById {
   constructor(postId) {
     this.postId = postId
     this.error = []
@@ -111,10 +111,27 @@ class DeletePost {
   }
 }
 
+class SearchPostByContent {
+  constructor(searchField) {
+    this.searchField = searchField
+  }
+
+  createQuerry() {
+    const regex = new RegExp(this.searchField)
+    this.querry = { postBody: { $regex: regex } }
+  }
+
+  async findPosts() {
+    const databaseFind = new DatabaseFind("userCreatedPosts", this.querry)
+    return await databaseFind.findWithQuerry()
+  }
+}
+
 module.exports = {
   Post,
   CreatePost,
-  FindPost,
+  FindPostById,
   EditPost,
-  DeletePost
+  DeletePost,
+  SearchPostByContent
 }

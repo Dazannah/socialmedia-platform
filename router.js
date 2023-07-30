@@ -21,10 +21,10 @@ router.use(loginController.validateLogin)
 
 //posts
 router.post("/create-post", postController.createPost)
-router.get("/post/:id", postController.findPost)
+router.get("/post/:id", postController.findPostById)
 router.patch("/post/:id/edit", postController.editPost)
 router.delete("/post/:id/delete", postController.deletePost)
-//router.post("/search")
+router.post("/search-post", postController.searchPostByContent)
 
 //follow
 //router.post("/addFollow/:username")

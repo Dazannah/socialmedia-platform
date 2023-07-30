@@ -1,4 +1,4 @@
-const { CreatePost, FindPost, EditPost, DeletePost } = require("../module/Post")
+const { CreatePost, FindPostById, EditPost, DeletePost, SearchPostByContent } = require("../module/Post")
 
 async function createPost(data) {
   const username = data.username
@@ -14,14 +14,14 @@ async function createPost(data) {
   return createdPostId
 }
 
-async function findPost(data) {
+async function findPostById(data) {
   const postId = data.params.id
 
-  const findPost = new FindPost(postId)
-  findPost.validatePostId()
-  await findPost.findPost()
-  await findPost.findAuthorUsername()
-  const post = findPost.getDataToSend()
+  const findPostById = new FindPostById(postId)
+  findPostById.validatePostId()
+  await findPostById.findPost()
+  await findPostById.findAuthorUsername()
+  const post = findPostById.getDataToSend()
 
   return post
 }
@@ -31,7 +31,7 @@ async function editPost(data) {
   const postBody = data.body.postBody
   const username = data.body.username
 
-  const originalPost = await findPost(data)
+  const originalPost = await findPostById(data)
 
   const editPost = new EditPost(username, postTitle, postBody, originalPost)
   editPost.checkOwnership()
@@ -43,15 +43,26 @@ async function deletePost(data) {
   const postId = data.params.id
   const username = data.body.username
 
-  const originalPost = await findPost(data)
+  const originalPost = await findPostById(data)
   const deletePost = new DeletePost(username, postId, originalPost)
   deletePost.checkOwnership()
   await deletePost.deletePost()
 }
 
+async function searchPostByContent(data) {
+  const searchField = data.body.searchField
+
+  const searchPostByContent = new SearchPostByContent(searchField)
+  searchPostByContent.createQuerry()
+  const foundPosts = await searchPostByContent.findPosts()
+
+  return foundPosts
+}
+
 module.exports = {
   createPost,
-  findPost,
+  findPostById,
   editPost,
-  deletePost
+  deletePost,
+  searchPostByContent
 }
