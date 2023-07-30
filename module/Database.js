@@ -35,4 +35,17 @@ class DatabaseFind {
   }
 }
 
-module.exports = { DatabaseSave, DatabaseFind }
+class DatabaseUpdate {
+  constructor(collection, idToUpdate, data) {
+    this.collection = db.collection(collection)
+    this.idToUpdate = idToUpdate
+    this.data = data
+  }
+
+  async updateOne() {
+    console.log(this.data)
+    await this.collection.updateOne({ _id: new ObjectId(this.idToUpdate) }, { $set: this.data })
+  }
+}
+
+module.exports = { DatabaseSave, DatabaseFind, DatabaseUpdate }
