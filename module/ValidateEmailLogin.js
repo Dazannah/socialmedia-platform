@@ -1,4 +1,5 @@
 const { throwErrorArray } = require("../utils/errors")
+const { getUsernameRegex } = require("../utils/regex")
 const { DatabaseFind } = require("../module/Database")
 const { PasswordCompare } = require("../module/PasswordHash")
 
@@ -18,7 +19,8 @@ class ValidateEmailLogin {
   }
 
   async isUserExist() {
-    const databaseFind = new DatabaseFind("users", { username: this.username })
+    const regex = getUsernameRegex(this.username)
+    const databaseFind = new DatabaseFind("users", { username: { $regex: regex } })
     const isUserExist = await databaseFind.findOneWithQuerry()
 
     if (!isUserExist) this.error.push("Username/password incorrect.")
