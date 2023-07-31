@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
   res.send("index.html")
 })
 
-app.use("/", router)
+app.use("/", router) // when frontend start rename to /api
 
 app.use(errorHandler)
 

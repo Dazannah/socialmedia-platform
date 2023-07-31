@@ -15,6 +15,10 @@ class ValidateEmailRegistration {
     if (this.password === undefined || this.password === null || this.password === "") this.error.push("You must provide a password.")
     if (this.password != this.passwordRepeate) this.error.push("The password must match.")
 
+    //username validation
+    const alphaNumeric = /[0-9a-zA-Z]/
+    if (!alphaNumeric.test(this.username)) this.error.push("The user name can contain only english alphabet letters, and numbers.")
+
     //validate password
     const capitalCaseRegex = /^(?=.*\d)[A-Z0-9].{8,16}$/
     if (!capitalCaseRegex.test(this.password)) this.error.push("The password must have at least one upper case letter and a number, and the length hase to be between 8 and 16 letter.")
