@@ -1,5 +1,6 @@
 const { DatabaseFind, DatabaseSave, DatabaseDeleteWithQuerry } = require("./Database")
 const { throwErrorArray } = require("../utils/errors")
+const { getUsernameRegex } = require("../utils/regex")
 const { ObjectId } = require("mongodb")
 
 class Follow {
@@ -10,7 +11,7 @@ class Follow {
   }
 
   generateQuerry() {
-    const regex = new RegExp(`^${this.followUsername}$`, "i")
+    const regex = getUsernameRegex(this.followUsername)
     this.querry = { username: { $regex: regex } }
   }
 
