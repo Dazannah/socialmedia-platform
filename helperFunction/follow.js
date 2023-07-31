@@ -3,9 +3,11 @@ const { StartFollow, StopFollow } = require("../module/Follow")
 async function addFollow(data) {
   const userId = data.body.userId
   const usernameToFollow = data.params.username
+  const username = data.body.username
 
-  const startFollow = new StartFollow(userId, usernameToFollow)
+  const startFollow = new StartFollow(userId, usernameToFollow, username)
   startFollow.generateQuerry()
+  startFollow.isToFollowAndUserIsSame()
   await startFollow.isUserToFollowExist()
   await startFollow.isAlreadyFollow()
   startFollow.generateFollowData()

@@ -38,8 +38,16 @@ class Follow {
 }
 
 class StartFollow extends Follow {
-  constructor(userId, usernameToFollow) {
+  constructor(userId, usernameToFollow, username) {
     super(userId, usernameToFollow)
+    this.username = username
+  }
+
+  isToFollowAndUserIsSame() {
+    const regex = getUsernameRegex(this.username)
+    if (regex.test(this.followUsername)) this.error.push("Can't follow yourselfe.")
+
+    throwErrorArray(this.error, 200)
   }
 
   async isAlreadyFollow() {
