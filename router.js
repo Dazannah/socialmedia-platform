@@ -5,6 +5,7 @@ const registrationController = require("./controller/registration")
 const postController = require("./controller/post")
 const loginController = require("./controller/login")
 const followController = require("./controller/follow")
+const profileController = require("./controller/profile")
 
 //authentication
 router.post("/register-email", registrationController.registerEmail)
@@ -17,7 +18,7 @@ router.use(loginController.validateLogin)
 
 //profile
 //router.get("/profile/:username")
-//router.get("/profile/:username/followers")
+router.get("/profile/:username/followers", profileController.getFollowers)
 //router.get("/profile/:username/following")
 
 //posts
