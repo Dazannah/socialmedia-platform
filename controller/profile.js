@@ -10,6 +10,17 @@ async function getFollowers(req, res, next) {
   }
 }
 
+async function getFollowing(req, res, next) {
+  try {
+    const follows = await helperFunctionProfile.getFollowing(req)
+
+    res.status(200).json({ follows })
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
-  getFollowers
+  getFollowers,
+  getFollowing
 }

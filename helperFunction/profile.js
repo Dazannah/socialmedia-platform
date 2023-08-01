@@ -1,4 +1,4 @@
-const { GetFollowers } = require("../module/Followers")
+const { GetFollowers, GetFollowing } = require("../module/Followers")
 
 async function getFollowers(data) {
   const username = data.params.username
@@ -13,6 +13,20 @@ async function getFollowers(data) {
   return usernames
 }
 
+async function getFollowing(data) {
+  const username = data.params.username
+
+  const gerFollowing = new GetFollowing(username, "userId")
+  await gerFollowing.isUserExist()
+  await gerFollowing.getFollowDocuments()
+  gerFollowing.getUserIdsArray()
+  await gerFollowing.getUserDocuments()
+
+  const following = gerFollowing.getUsernameFromUserDocuments()
+  return following
+}
+
 module.exports = {
-  getFollowers
+  getFollowers,
+  getFollowing
 }

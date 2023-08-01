@@ -54,6 +54,19 @@ class GetFollowers extends Followers {
   }
 }
 
+class GetFollowing extends Followers {
+  constructor(username, fieldToFind) {
+    super(username, fieldToFind)
+  }
+
+  getUserIdsArray() {
+    this.followDocuments.forEach(document => {
+      this.idArray.push(document.followedId)
+    })
+  }
+}
+
 module.exports = {
-  GetFollowers
+  GetFollowers,
+  GetFollowing
 }
