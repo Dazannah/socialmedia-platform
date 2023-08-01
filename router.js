@@ -19,7 +19,7 @@ router.use(loginController.validateLogin)
 //profile
 //router.get("/profile/:username")
 router.get("/profile/:username/followers", profileController.getFollowers)
-//router.get("/profile/:username/following")
+router.get("/profile/:username/following", profileController.getFollowing)
 
 //posts
 router.post("/create-post", postController.createPost)
