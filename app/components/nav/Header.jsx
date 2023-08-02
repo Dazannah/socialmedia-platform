@@ -4,7 +4,7 @@ import Menu from "./Menu.jsx"
 
 function Header(props) {
   return (
-    <div>
+    <div id="header" key="header">
       <Menu />
     </div>
   )

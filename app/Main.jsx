@@ -4,7 +4,7 @@ import { useImmerReducer } from "use-immer"
 import { BrowserRouter, Routes, Route, Router } from "react-router-dom"
 import Axios from "axios"
 
-Axios.defaults.baseURL = "/api"
+Axios.defaults.baseURL = "http://localhost:3000/api"
 
 import StateContext from "./StateContext.jsx"
 import DispatchContext from "./DispatchContext.jsx"

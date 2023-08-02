@@ -1,11 +1,14 @@
 const express = require("express")
 const router = express.Router()
+const cors = require("cors")
 
 const registrationController = require("./controller/registration")
 const postController = require("./controller/post")
 const loginController = require("./controller/login")
 const followController = require("./controller/follow")
 const profileController = require("./controller/profile")
+
+router.use(cors())
 
 //authentication
 router.post("/register-email", registrationController.registerEmail)
