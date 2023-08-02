@@ -17,12 +17,18 @@ import Registration from "./components/Registration.jsx"
 
 function Main() {
   const initialState = {
-    loggedIn: false
+    loggedIn: localStorage.getItem("isLoggedIn"),
+    token: localStorage.getItem("token")
   }
 
   function ourReducer(draft, action) {
     switch (action.type) {
       case "login":
+        localStorage.setItem("isLoggedIn", true)
+        draft.loggedIn = true
+        return
+      case "logout":
+        localStorage.removeItem("token")
         draft.loggedIn = false
         return
     }
