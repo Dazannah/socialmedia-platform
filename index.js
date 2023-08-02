@@ -9,6 +9,9 @@ const errorHandler = require("./middlewares/errorHandler")
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "public")))
+
+app.use("/api", router) // when frontend start rename to /api
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"))
 })
@@ -17,8 +20,6 @@ app.use(sanitazeBody)
 app.get("/", (req, res) => {
   res.send("index.html")
 })
-
-app.use("/api", router) // when frontend start rename to /api
 
 app.use(errorHandler)
 
