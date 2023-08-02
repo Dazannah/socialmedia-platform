@@ -3,6 +3,8 @@ const { PasswordHash } = require("../module/PasswordHash")
 const { SerializeEmailRegistrationData } = require("../module/Serialization")
 const { DatabaseSave } = require("../module/Database")
 
+const EmailVerification = require("../module/EmailVerification")
+
 async function registrationWithEmail(body) {
   const username = body.username
   const password = body.password
@@ -21,6 +23,12 @@ async function registrationWithEmail(body) {
 
   const databaseSave = new DatabaseSave("users", dataToSave)
   await databaseSave.saveOne()
+
+  const emailVerification = new EmailVerification(validate.email, validate.username)
+  emailVerification.generateRandomString()
+  //generate link
+  //save link in database
+  //send email with link
 }
 
 module.exports = {
