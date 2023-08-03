@@ -50,9 +50,9 @@ function Login(props) {
   return (
     <div id="login-form-wrapper">
       <form id="login-form">
-        <input type="text" name="username" id="login-username" placeholder="Username" onChange={e => setUsername(e.target.value)} autoComplete="off" />
-        <input type="password" name="password" id="login-password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
-        <input type="submit" value="Submit" id="login-submit" className="button" onClick={e => handleSubmit(e)} />
+        <input type="text" name="username" id="login-username" className="round-corner" placeholder="Username" onChange={e => setUsername(e.target.value)} autoComplete="off" />
+        <input type="password" name="password" id="login-password" className="round-corner" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+        <input type="submit" value="Submit" id="login-submit" className="button round-corner" onClick={e => handleSubmit(e)} />
         <Link id="to-registration" to="/registration">
           To registration
         </Link>
