@@ -32,6 +32,7 @@ function Main() {
         draft.loggedIn = true
         return
       case "logout":
+        localStorage.removeItem("isLoggedIn")
         localStorage.removeItem("token")
         draft.loggedIn = false
         return
@@ -53,6 +54,7 @@ function Main() {
     return (
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
+          <Warning message={state.flashMessageWarning} />
           <BrowserRouter>
             <Header />
             <Routes>
@@ -66,8 +68,8 @@ function Main() {
     return (
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
+          <Warning message={state.flashMessageWarning} />
           <BrowserRouter>
-            <Warning message={state.flashMessageWarning} />
             <Routes>
               <Route path="/registration" element={<Registration />} />
               <Route path="*" element={<Login />} />
