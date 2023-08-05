@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 
 function Post(props) {
-  if (typeof props.post === "array") {
+  if (Array.isArray(props.post)) {
     return <>multiple post</>
   } else {
     return (
