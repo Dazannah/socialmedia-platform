@@ -14,15 +14,14 @@ import Header from "./components/nav/Header.jsx"
 import Home from "./components/Home.jsx"
 import Login from "./components/Login.jsx"
 import Registration from "./components/Registration.jsx"
-import Warning from "./components/flashMessage/warning.jsx"
+import FlashMessage from "./components/flashMessage/FlashMessage.jsx"
 
 function Main() {
   const initialState = {
     loggedIn: localStorage.getItem("isLoggedIn"),
     token: localStorage.getItem("token"),
-    flashMessageSuccess: [],
-    flashMessageWarning: [],
-    flashMessageError: []
+    flashMessage: [],
+    flashMessageType: ""
   }
 
   function ourReducer(draft, action) {
@@ -37,13 +36,20 @@ function Main() {
         draft.loggedIn = false
         return
       case "success":
-        draft.flashMessageSuccess = action.value
+        draft.flashMessageType = "success"
+        draft.flashMessage = action.value
         return
       case "warning":
-        draft.flashMessageWarning = action.value
+        draft.flashMessageType = "warning"
+        draft.flashMessage = action.value
         return
       case "error":
-        draft.flashMessageError = action.value
+        draft.flashMessageType = "error"
+        draft.flashMessage = action.value
+        return
+      case "emptyFlashMessage":
+        draft.flashMessageType = ""
+        draft.flashMessage = []
         return
     }
   }
@@ -54,7 +60,7 @@ function Main() {
     return (
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
-          <Warning message={state.flashMessageWarning} />
+          <FlashMessage />
           <BrowserRouter>
             <Header />
             <Routes>
@@ -68,7 +74,7 @@ function Main() {
     return (
       <StateContext.Provider value={state}>
         <DispatchContext.Provider value={dispatch}>
-          <Warning message={state.flashMessageWarning} />
+          <FlashMessage />
           <BrowserRouter>
             <Routes>
               <Route path="/registration" element={<Registration />} />

@@ -1,3 +1,12 @@
+html {
+  font-family: Tahoma, sans-serif;
+  scroll-behavior: smooth;
+}
+
+input {
+  font-family: Tahoma, sans-serif;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -73,7 +82,7 @@ body {
 .register-label-starter {
   position: absolute;
   left: 5px;
-  top: 21px;
+  top: 19px;
   font-size: 80%;
   z-index: 1;
   transition: all 200ms ease;
@@ -82,7 +91,7 @@ body {
 .register-label-end {
   position: absolute;
   left: 5px;
-  top: 1px;
+  top: 0;
   font-size: 80%;
   z-index: 1;
 }
@@ -134,14 +143,29 @@ body {
   right: 0;
   margin: auto;
   z-index: 1;
-  background-color: orange;
+  transition: opacity 400ms ease;
+}
+
+#flash-message-wrapper .flash-message {
   padding: 10px;
   box-sizing: border-box;
-  box-shadow: inset 0 0 5px black;
+  box-shadow: 0 0 5px black;
+}
+
+#flash-message-wrapper .success {
+  background-color: green;
+}
+
+#flash-message-wrapper .warning {
+  background-color: orange;
+}
+
+#flash-message-wrapper .error {
+  background-color: red;
 }
 
 .hidden {
-  display: none;
+  opacity: 0;
 }
 
 .round-corner {
