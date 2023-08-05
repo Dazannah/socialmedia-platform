@@ -13,7 +13,9 @@ async function loginWithEmail(body) {
 
   const userId = validateEmailLogin.userId
 
-  return generateJwt({ username: username, userId })
+  const token = generateJwt({ username: username, userId })
+
+  return { token, username }
 }
 
 async function validateLogin(authHeader) {
