@@ -4,6 +4,7 @@ import Axios from "axios"
 
 import DispatchContext from "../DispatchContext.jsx"
 
+import Page from "./Page.jsx"
 import errorHandler from "./helperFunctions/errorHandler.js"
 
 function Login(props) {
@@ -35,14 +36,6 @@ function Login(props) {
     }
   }
 
-  function checkResponse(response) {
-    if (response.status === 200) {
-      localStorage.setItem("token", response.data.token)
-      appDispatch({ type: "login" })
-    } else {
-    }
-  }
-
   function validateData() {
     const error = []
 
@@ -52,19 +45,19 @@ function Login(props) {
     return error
   }
 
-  async function sendRequest() {}
-
   return (
-    <div id="login-form-wrapper">
-      <form id="login-form">
-        <input type="text" name="username" id="login-username" className="round-corner" placeholder="Username" onChange={e => setUsername(e.target.value)} autoComplete="off" />
-        <input type="password" name="password" id="login-password" className="round-corner" placeholder="Password" onChange={e => setPassword(e.target.value)} />
-        <input type="submit" value="Submit" id="login-submit" className="button round-corner" onClick={e => handleSubmit(e)} />
-        <Link id="to-registration" to="/registration">
-          To registration
-        </Link>
-      </form>
-    </div>
+    <Page title="Login">
+      <div id="login-form-wrapper">
+        <form id="login-form">
+          <input type="text" name="username" id="login-username" className="round-corner" placeholder="Username" onChange={e => setUsername(e.target.value)} autoComplete="off" />
+          <input type="password" name="password" id="login-password" className="round-corner" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+          <input type="submit" value="Submit" id="login-submit" className="button round-corner" onClick={e => handleSubmit(e)} />
+          <Link id="to-registration" to="/registration">
+            To registration
+          </Link>
+        </form>
+      </div>
+    </Page>
   )
 }
 
