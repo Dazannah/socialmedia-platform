@@ -6,24 +6,44 @@ function Post(props) {
     return new Date(date).toLocaleString()
   }
 
-  if (Array.isArray(props.post)) {
-    return <>multiple post</>
-  } else {
-    return (
-      <div id="single-post-wrapper">
-        <div className="post-wrapper">
-          <h1>{props.post.postTitle}</h1>
-          <span className="post-body">{props.post.postBody}</span>
-          <Link className="post-username" key={props.post.author} to={"/profile/" + props.post.author}>
-            {props.post.author}
-          </Link>
-          <span className="post-create-date">Posted: {convertDate(props.post.postCreateDate)}</span>
+  function getKey(id, index) {
+    let key = "key" + id
+    if (index) {
+      key += index
+    }
 
-          <button className="post-watch-comments">Show comments</button>
-        </div>
+    return key
+  }
+
+  function isPostsArray(posts) {
+    if (Array.isArray(posts)) {
+      {
+        return posts.map((post, index) => {
+          return generatePosts(post, index)
+        })
+      }
+    } else {
+      console.log(posts)
+      return generatePosts(posts, 1)
+    }
+  }
+
+  function generatePosts(post, index) {
+    return (
+      <div className="post-wrapper" key={getKey(post._id, index)}>
+        <h1>{post.postTitle}</h1>
+        <span className="post-body">{post.postBody}</span>
+        <Link className="post-username" key={post.author} to={"/profile/" + post.author}>
+          {post.author}
+        </Link>
+        <span className="post-create-date">Posted: {convertDate(post.postCreateDate)}</span>
+
+        <button className="post-watch-comments">Show comments</button>
       </div>
     )
   }
+
+  return <div id="single-post-wrapper">{isPostsArray(props.posts)}</div>
 }
 
 export default Post

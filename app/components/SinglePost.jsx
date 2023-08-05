@@ -58,7 +58,7 @@ function SinglePost(props) {
   } else {
     return (
       <Page title={postData.title}>
-        <Post post={postData} />
+        <Post posts={postData} />
       </Page>
     )
   }
