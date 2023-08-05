@@ -17,6 +17,7 @@ import Login from "./components/Login.jsx"
 import SinglePost from "./components/SinglePost.jsx"
 import Registration from "./components/Registration.jsx"
 import FlashMessage from "./components/flashMessage/FlashMessage.jsx"
+import Profile from "./components/Profile.jsx"
 
 function Main() {
   const initialState = {
@@ -74,6 +75,7 @@ function Main() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/post/:postId" element={<SinglePost />} />
+                <Route path="/profile/:username" element={<Profile />} />
               </Routes>
             </LoggedInWrapper>
           </BrowserRouter>
