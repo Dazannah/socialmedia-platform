@@ -29,9 +29,17 @@ class DatabaseFind {
   }
 
   async findOneById() {
-    this.querry = { _id: new ObjectId(this.querry._id) }
+    const querryKeys = Object.keys(this.querry)
+    this.querry = { [querryKeys[0]]: new ObjectId(this.querry[querryKeys[0]]) }
 
     return await this.findOneWithQuerry()
+  }
+
+  async findById() {
+    const querryKeys = Object.keys(this.querry)
+    this.querry = { [querryKeys[0]]: new ObjectId(this.querry[querryKeys[0]]) }
+
+    return await this.findWithQuerry()
   }
 }
 
