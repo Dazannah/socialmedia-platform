@@ -4,6 +4,8 @@ import Axios from "axios"
 
 import DispatchContext from "../DispatchContext.jsx"
 
+import errorHandler from "./helperFunctions/errorHandler.js"
+
 function Registration(props) {
   const appDispatch = useContext(DispatchContext)
   const navigate = useNavigate()
@@ -28,9 +30,13 @@ function Registration(props) {
           email
         })
 
+        appDispatch({ type: "success", value: ["Successfull registration, now you can login."] })
+
         navigate("/")
       } catch (err) {
-        appDispatch({ type: "warning", value: [err.message] })
+        const flashMessage = errorHandler(err)
+
+        appDispatch(flashMessage)
       }
     }
   }
@@ -56,7 +62,7 @@ function Registration(props) {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     if (!emailRegex.test(email)) error.push("You must provide a valid e-mail address.")
 
-    return [] //error
+    return error
   }
 
   function handleFocus(e) {

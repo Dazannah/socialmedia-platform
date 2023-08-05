@@ -4,6 +4,8 @@ import Axios from "axios"
 
 import DispatchContext from "../DispatchContext.jsx"
 
+import errorHandler from "./helperFunctions/errorHandler.js"
+
 function Login(props) {
   const appDispatch = useContext(DispatchContext)
 
@@ -13,12 +15,23 @@ function Login(props) {
   async function handleSubmit(e) {
     e.preventDefault()
 
-    const errors = validateData()
-    if (errors.length == 0) {
-      const response = await sendRequest()
-      checkResponse(response)
+    const error = validateData()
+    if (error.length == 0) {
+      try {
+        const response = await Axios.post("/login-email", {
+          username,
+          password
+        })
+
+        localStorage.setItem("token", response.data.token)
+        appDispatch({ type: "login" })
+      } catch (err) {
+        const flashMessage = errorHandler(err)
+
+        appDispatch(flashMessage)
+      }
     } else {
-      console.log(errors)
+      appDispatch({ type: "warning", value: error })
     }
   }
 
@@ -27,25 +40,19 @@ function Login(props) {
       localStorage.setItem("token", response.data.token)
       appDispatch({ type: "login" })
     } else {
-      console.log(response)
     }
   }
 
   function validateData() {
-    const errors = []
+    const error = []
 
-    if (username === undefined || username === null || username === "") errors.push("You have to provide a username")
-    if (password === undefined || password === null || password === "") errors.push("You have to provide a password")
+    if (username === undefined || username === null || username === "") error.push("You have to provide a username")
+    if (password === undefined || password === null || password === "") error.push("You have to provide a password")
 
-    return errors
+    return error
   }
 
-  async function sendRequest() {
-    return await Axios.post("/login-email", {
-      username: username,
-      password: password
-    })
-  }
+  async function sendRequest() {}
 
   return (
     <div id="login-form-wrapper">
