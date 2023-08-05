@@ -23,7 +23,7 @@ class GetProfile {
     const database = new DatabaseFind("userCreatedPosts", { author: this.userData._id })
     this.posts = await database.findById()
 
-    if (!this.posts) this.error.push(`${this.username} don't have any post.`)
+    if (!this.posts) this.error.push(`${this.userData.username} don't have any post.`)
     throwErrorArray(this.error, 200)
   }
 
