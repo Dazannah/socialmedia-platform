@@ -20,7 +20,7 @@ router.post("/login-email", loginController.loginEmail)
 router.use(loginController.validateLogin)
 
 //profile
-//router.get("/profile/:username")
+router.get("/profile/:username", profileController.getUserProfile)
 router.get("/profile/:username/followers", profileController.getFollowers)
 router.get("/profile/:username/following", profileController.getFollowing)
 

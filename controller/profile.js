@@ -20,7 +20,18 @@ async function getFollowing(req, res, next) {
   }
 }
 
+async function getUserProfile(req, res, next) {
+  try {
+    const userProfile = await helperFunctionProfile.getUserProfile(req)
+
+    res.status(200).json({ userProfile }) //always last in array the user data
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
   getFollowers,
-  getFollowing
+  getFollowing,
+  getUserProfile
 }

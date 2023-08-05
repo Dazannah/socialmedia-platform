@@ -1,4 +1,5 @@
 const { GetFollowers, GetFollowing } = require("../module/Followers")
+const { GetProfile } = require("../module/Profile")
 
 async function getFollowers(data) {
   const username = data.params.username
@@ -26,7 +27,19 @@ async function getFollowing(data) {
   return following
 }
 
+async function getUserProfile(data) {
+  const username = data.params.username
+
+  const getProfile = new GetProfile(username)
+  await getProfile.isValidUsername()
+  await getProfile.getUserPosts()
+  const dataTosend = getProfile.serializeDataToSend()
+
+  return dataTosend
+}
+
 module.exports = {
   getFollowers,
-  getFollowing
+  getFollowing,
+  getUserProfile
 }
