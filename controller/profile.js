@@ -24,7 +24,7 @@ async function getUserProfile(req, res, next) {
   try {
     const userProfile = await helperFunctionProfile.getUserProfile(req)
 
-    res.status(200).json({ userProfile }) //always last in array the user data
+    res.status(200).json(userProfile) //always last in array the user data
   } catch (err) {
     next(err)
   }
