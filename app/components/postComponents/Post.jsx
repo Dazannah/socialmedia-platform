@@ -2,6 +2,10 @@ import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 
 function Post(props) {
+  function convertDate(date) {
+    return new Date(date).toLocaleString()
+  }
+
   if (Array.isArray(props.post)) {
     return <>multiple post</>
   } else {
@@ -13,7 +17,7 @@ function Post(props) {
           <Link className="post-username" key={props.post.author} to={"/profile/" + props.post.author}>
             {props.post.author}
           </Link>
-          <span className="post-create-date">Posted: {props.post.postCreateDate}</span>
+          <span className="post-create-date">Posted: {convertDate(props.post.postCreateDate)}</span>
 
           <button className="post-watch-comments">Show comments</button>
         </div>

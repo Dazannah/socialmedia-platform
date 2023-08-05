@@ -8,6 +8,7 @@ import StateContext from "../StateContext.jsx"
 import errorHandler from "./helperFunctions/errorHandler.js"
 import Page from "./Page.jsx"
 import Post from "./postComponents/Post.jsx"
+import Loading from "./Loading.jsx"
 
 function SinglePost(props) {
   const appDispatch = useContext(DispatchContext)
@@ -48,7 +49,12 @@ function SinglePost(props) {
   }, [initialLoad])
 
   if (isLoading) {
-    return <Page title="Loading">Loading..</Page>
+    return (
+      <Page title="Loading">
+        {" "}
+        <Loading />
+      </Page>
+    )
   } else {
     return (
       <Page title={postData.title}>
