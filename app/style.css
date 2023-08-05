@@ -16,7 +16,7 @@ body {
 
 #main-wrapper {
   display: grid;
-  grid-template-columns: 20% 50% 30%;
+  grid-template-columns: 25% 50% 25%;
   min-height: 100vh;
   height: auto;
 }
