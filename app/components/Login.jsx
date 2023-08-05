@@ -26,6 +26,9 @@ function Login(props) {
 
         localStorage.setItem("token", response.data.token)
         appDispatch({ type: "login" })
+
+        localStorage.setItem("username", response.data.username)
+        appDispatch({ type: "setUsername", value: response.data.username })
       } catch (err) {
         const flashMessage = errorHandler(err)
 

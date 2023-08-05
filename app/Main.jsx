@@ -22,6 +22,7 @@ function Main() {
   const initialState = {
     loggedIn: localStorage.getItem("isLoggedIn"),
     token: localStorage.getItem("token"),
+    username: localStorage.getItem("username"),
     flashMessage: [],
     flashMessageType: ""
   }
@@ -35,7 +36,11 @@ function Main() {
       case "logout":
         localStorage.removeItem("isLoggedIn")
         localStorage.removeItem("token")
+        localStorage.removeItem("username")
         draft.loggedIn = false
+        return
+      case "setUsername":
+        draft.username = action.value
         return
       case "success":
         draft.flashMessageType = "success"
