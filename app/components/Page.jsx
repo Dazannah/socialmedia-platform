@@ -7,8 +7,6 @@ function Page(props) {
 
   useEffect(() => {
     document.title = `${props.title}`
-    appDispatch({ type: "setSiteLocation", value: `${props.title}` })
-    window.scrollTo(0, 0)
   }, [])
 
   return <div className="main-content-wrapper">{props.children}</div>

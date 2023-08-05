@@ -13,6 +13,7 @@ import DispatchContext from "./DispatchContext.jsx"
 import Header from "./components/nav/Header.jsx"
 import Home from "./components/Home.jsx"
 import Login from "./components/Login.jsx"
+import SinglePost from "./components/SinglePost.jsx"
 import Registration from "./components/Registration.jsx"
 import FlashMessage from "./components/flashMessage/FlashMessage.jsx"
 
@@ -65,6 +66,7 @@ function Main() {
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/post/:postId" element={<SinglePost />} />
             </Routes>
           </BrowserRouter>
         </DispatchContext.Provider>
