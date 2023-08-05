@@ -2,12 +2,12 @@ import React, { useEffect } from "react"
 
 import Menu from "./Menu.jsx"
 
-function Header(props) {
+function Sidebar(props) {
   return (
-    <div id="header" key="header">
+    <div id="sidebar" key="sidebar">
       <Menu />
     </div>
   )
 }
 
-export default Header
+export default Sidebar

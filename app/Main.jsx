@@ -10,7 +10,8 @@ import StateContext from "./StateContext.jsx"
 import DispatchContext from "./DispatchContext.jsx"
 
 //components
-import Header from "./components/nav/Header.jsx"
+import LoggedInWrapper from "./components/LoggedInWrapper.jsx"
+import Sidebar from "./components/nav/Sidebar.jsx"
 import Home from "./components/Home.jsx"
 import Login from "./components/Login.jsx"
 import SinglePost from "./components/SinglePost.jsx"
@@ -63,11 +64,13 @@ function Main() {
         <DispatchContext.Provider value={dispatch}>
           <FlashMessage />
           <BrowserRouter>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/post/:postId" element={<SinglePost />} />
-            </Routes>
+            <LoggedInWrapper>
+              <Sidebar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/post/:postId" element={<SinglePost />} />
+              </Routes>
+            </LoggedInWrapper>
           </BrowserRouter>
         </DispatchContext.Provider>
       </StateContext.Provider>

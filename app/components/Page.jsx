@@ -9,6 +9,6 @@ function Page(props) {
     document.title = `${props.title}`
   }, [])
 
-  return <div className="main-content-wrapper">{props.children}</div>
+  return <div id="main-content-wrapper">{props.children}</div>
 }
 export default Page

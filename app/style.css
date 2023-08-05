@@ -12,6 +12,40 @@ body {
   margin: 0;
 }
 
+/* main layout */
+
+#main-wrapper {
+  display: grid;
+  grid-template-columns: 20% 50% 30%;
+  min-height: 100vh;
+  height: auto;
+}
+
+#sidebar {
+  position: sticky;
+  top: 40vh;
+  align-self: baseline;
+  display: grid;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+}
+
+#sidebar nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: fit-content;
+}
+
+#main-content-wrapper {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 2px;
+  width: 100%;
+}
+
+/* main layout end */
+
 /* login */
 #login-form-wrapper {
   display: grid;
@@ -142,6 +176,7 @@ body {
 /* registration end */
 
 /* flash messege */
+
 #flash-message-wrapper {
   position: absolute;
   max-width: 40vh;
@@ -240,15 +275,11 @@ body {
   color: red;
 }
 
-#single-post-wrapper {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  grid-template-columns: 60%;
-}
-
 /* post end*/
 
+/*sidebar */
+
+/* sidebar end */
 .round-corner {
   border-radius: 5px;
 }
