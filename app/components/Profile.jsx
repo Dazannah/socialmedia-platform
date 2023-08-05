@@ -15,6 +15,9 @@ function Profile(props) {
   const [initalLoad, setInitalLoad] = useState(true)
   const { username } = useParams()
 
+  const [userProfile, setUserProfile] = useState()
+  const [userPosts, setUserPosts] = useState()
+
   useEffect(() => {
     if (initalLoad) {
       async function getProfile() {
@@ -24,15 +27,13 @@ function Profile(props) {
               Authorization: `Bearer ${appState.token}`
             }
           })
-
-          console.log(profile)
+          setUserProfile(profile.data.slice(-1)[0])
+          setUserPosts(profile.data.slice(0, -1))
         } catch (err) {
-          console.log(err)
           const flashMessage = errorHandler(err)
 
           appDispatch(flashMessage)
         }
-        console.log(username)
       }
       getProfile()
     }
