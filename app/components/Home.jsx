@@ -4,6 +4,7 @@ import Axios from "axios"
 
 import Page from "./Page.jsx"
 import Loading from "./Loading.jsx"
+import Post from "./postComponents/Post.jsx"
 
 import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
@@ -13,7 +14,7 @@ function Home(props) {
   const appDispatch = useContext(DispatchContext)
   const appState = useContext(StateContext)
 
-  const [posts, setPosts] = useState()
+  const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [getFeed, setGetFeed] = useState(true)
 
@@ -28,10 +29,12 @@ function Home(props) {
 
         setPosts(response.data)
         setGetFeed(false)
-        isLoading(false)
+        setIsLoading(false)
       } catch (err) {
         const flashMessage = errorHandler(err)
 
+        setGetFeed(false)
+        setIsLoading(false)
         appDispatch(flashMessage)
       }
     }
@@ -44,10 +47,12 @@ function Home(props) {
         <Loading />
       </Page>
     )
+  } else if (posts.length === 0) {
+    return <Page title="Home">Your feed seems pretty empty, try to follow someone.</Page>
   } else {
     return (
       <Page title="Home">
-        <div>this is home asd</div>
+        <Post posts={posts} />
       </Page>
     )
   }
