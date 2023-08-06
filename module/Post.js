@@ -1,4 +1,5 @@
 const { throwErrorArray, throwErrorSingle } = require("../utils/errors")
+const { getUsernameRegex } = require("../utils/regex")
 const { DatabaseFind, DatabaseSave, DatabaseUpdate, DatabaseDelete } = require("./Database")
 const { ObjectId } = require("mongodb")
 
@@ -21,8 +22,13 @@ class Post {
   }
 
   async getUserId() {
-    const databaseFind = new DatabaseFind("users", { username: this.username })
+    const regex = getUsernameRegex(this.username)
+    const databaseFind = new DatabaseFind("users", { username: { $regex: regex } })
     const foundUser = await databaseFind.findOneWithQuerry()
+
+    if (foundUser === null || foundUser === undefined) this.error.push("Didn't find this username")
+    throwErrorArray(this.error, 409)
+
     this.user_id = foundUser._id
   }
 }
