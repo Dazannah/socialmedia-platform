@@ -10,6 +10,8 @@ import DispatchContext from "../DispatchContext.jsx"
 import StateContext from "../StateContext.jsx"
 import errorHandler from "./helperFunctions/errorHandler.js"
 
+import CreatePost from "./postComponents/CreatePost.jsx"
+
 function Home(props) {
   const appDispatch = useContext(DispatchContext)
   const appState = useContext(StateContext)
@@ -47,11 +49,12 @@ function Home(props) {
         <Loading />
       </Page>
     )
-  } else if (posts.length === 0) {
+  } else if (false /*posts.length === 0*/) {
     return <Page title="Home">Your feed seems pretty empty, try to follow someone.</Page>
   } else {
     return (
       <Page title="Home">
+        <CreatePost />
         <Post posts={posts} />
       </Page>
     )

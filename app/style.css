@@ -207,10 +207,6 @@ body {
   background-color: red;
 }
 
-.hidden {
-  opacity: 0;
-}
-
 /* flash messege end */
 
 /* post*/
@@ -277,9 +273,60 @@ body {
 
 /* post end*/
 
+/* create post*/
+
+#create-post-div {
+  width: 100%;
+  height: fit-content;
+}
+
+#make-a-post-button {
+  width: 100%;
+}
+
+#make-a-post-button:hover {
+  cursor: pointer;
+}
+
+#post-input-wrapper {
+  height: 20vh;
+  grid-template-columns: 100%;
+  grid-template-rows: 10% 80% 10%;
+}
+
+#post-title {
+  grid-row: 1/2;
+}
+
+#post-body {
+  grid-row: 2/3;
+}
+
+#post-submit {
+  grid-row: 3/4;
+}
+
+/* create post end */
+
 /*sidebar */
 
 /* sidebar end */
 .round-corner {
   border-radius: 5px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-grid {
+  display: grid;
+}
+
+button:hover {
+  cursor: pointer;
 }

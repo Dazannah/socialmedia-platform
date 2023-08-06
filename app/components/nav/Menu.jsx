@@ -13,9 +13,6 @@ function Menu(props) {
       <Link key="home-button" to="/">
         Home
       </Link>
-      <Link key="create-post-button" to="/create-post">
-        Create post
-      </Link>
       <Link key="profile-button" to={"/profile/" + appState.username}>
         Profile
       </Link>
