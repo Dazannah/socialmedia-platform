@@ -33,6 +33,8 @@ async function getUserProfile(data) {
   const getProfile = new GetProfile(username)
   await getProfile.isValidUsername()
   await getProfile.getUserPosts()
+  getProfile.isThereAnyPost()
+  getProfile.changeAuthorFieldToUsername()
   const dataTosend = getProfile.serializeDataToSend()
 
   return dataTosend

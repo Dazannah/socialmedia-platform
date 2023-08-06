@@ -128,11 +128,25 @@ class SearchPostByContent {
   }
 }
 
+class SearchPostsByUserId {
+  constructor(userId) {
+    this.userId = userId
+  }
+
+  async getPosts() {
+    const database = new DatabaseFind("userCreatedPosts", { author: this.userId })
+    this.posts = await database.findById()
+
+    return this.posts
+  }
+}
+
 module.exports = {
   Post,
   CreatePost,
   FindPostById,
   EditPost,
   DeletePost,
-  SearchPostByContent
+  SearchPostByContent,
+  SearchPostsByUserId
 }

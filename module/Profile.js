@@ -1,4 +1,5 @@
 const { DatabaseFind } = require("../module/Database")
+const { SearchPostsByUserId } = require("../module/Post")
 const { getUsernameRegex } = require("../utils/regex")
 const { throwErrorArray } = require("../utils/errors")
 
@@ -20,11 +21,19 @@ class GetProfile {
   }
 
   async getUserPosts() {
-    const database = new DatabaseFind("userCreatedPosts", { author: this.userData._id })
-    this.posts = await database.findById()
+    const searchPostsByUsername = new SearchPostsByUserId(this.userData._id)
+    this.posts = await searchPostsByUsername.getPosts()
+  }
 
+  isThereAnyPost() {
     if (!this.posts) this.error.push(`${this.userData.username} don't have any post.`)
     throwErrorArray(this.error, 200)
+  }
+
+  changeAuthorFieldToUsername() {
+    this.posts.forEach(post => {
+      post.author = this.username
+    })
   }
 
   serializeDataToSend() {
