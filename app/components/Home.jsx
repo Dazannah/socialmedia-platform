@@ -43,22 +43,22 @@ function Home(props) {
     getPosts()
   }, [getFeed])
 
-  if (isLoading) {
-    return (
-      <Page title="Home">
-        <Loading />
-      </Page>
-    )
-  } else if (false /*posts.length === 0*/) {
-    return <Page title="Home">Your feed seems pretty empty, try to follow someone.</Page>
-  } else {
-    return (
-      <Page title="Home">
-        <CreatePost />
-        <Post posts={posts} />
-      </Page>
-    )
+  function whatToDisplay() {
+    if (isLoading) {
+      return <Loading />
+    } else if (posts.length === 0) {
+      return "Your feed seems pretty empty, try to follow someone."
+    } else {
+      return <Post posts={posts} />
+    }
   }
+
+  return (
+    <Page title="Home">
+      <CreatePost />
+      {whatToDisplay()}
+    </Page>
+  )
 }
 
 export default Home
