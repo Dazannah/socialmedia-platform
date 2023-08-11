@@ -97,6 +97,20 @@ class FindPostById {
   }
 }
 
+class FindAllPostsByUserIds {
+  constructor(userIdArray) {
+    this.userIdArray = userIdArray
+    this.error = []
+  }
+
+  async getAllPosts() {
+    const querry = { author: { $in: this.userIdArray } }
+
+    const databaseFind = new DatabaseFind("userCreatedPosts", querry)
+    return await databaseFind.findWithQuerry()
+  }
+}
+
 class DeletePost {
   constructor(username, postId, originalPost) {
     this.username = username
@@ -147,6 +161,28 @@ class SearchPostsByUserId {
   }
 }
 
+class ChangeUserIdInPosts {
+  constructor(posts, followingIds) {
+    this.posts = posts
+    this.followingIds = followingIds
+  }
+
+  async getFollowingUsers() {
+    const database = new DatabaseFind("users", { _id: { $in: this.followingIds } })
+    this.followingUsers = await database.findWithQuerry()
+  }
+
+  swapIdToUsername() {
+    this.posts.forEach(post => {
+      this.followingUsers.forEach(user => {
+        if (post.author.toString() === user._id.toString()) post.author = user.username
+      })
+    })
+
+    return this.posts
+  }
+}
+
 module.exports = {
   Post,
   CreatePost,
@@ -154,5 +190,7 @@ module.exports = {
   EditPost,
   DeletePost,
   SearchPostByContent,
-  SearchPostsByUserId
+  SearchPostsByUserId,
+  FindAllPostsByUserIds,
+  ChangeUserIdInPosts
 }

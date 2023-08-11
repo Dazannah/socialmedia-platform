@@ -28,7 +28,7 @@ async function initialValidateLogin(req, res, next) {
   try {
     await loginHelperFunction.validateLogin(req.headers.authorization)
 
-    res.json("ok")
+    res.status(200).json("ok")
   } catch (err) {
     next(err)
   }

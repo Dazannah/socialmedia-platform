@@ -23,7 +23,6 @@ function Post(props) {
         })
       }
     } else {
-      console.log(posts)
       return generatePosts(posts, 1)
     }
   }

@@ -7,6 +7,7 @@ const postController = require("./controller/post")
 const loginController = require("./controller/login")
 const followController = require("./controller/follow")
 const profileController = require("./controller/profile")
+const homeController = require("./controller/home")
 
 router.use(cors())
 
@@ -20,6 +21,10 @@ router.get("/validate-login", loginController.initialValidateLogin)
 
 //protected routes
 router.use(loginController.validateLogin)
+
+//home
+
+router.get("/get-feed", homeController.getFeed)
 
 //profile
 router.get("/profile/:username", profileController.getUserProfile)
