@@ -17,13 +17,13 @@ async function getFollowers(data) {
 async function getFollowing(data) {
   const username = data.params.username
 
-  const gerFollowing = new GetFollowing(username, "userId")
-  await gerFollowing.isUserExist()
-  await gerFollowing.getFollowDocuments()
-  gerFollowing.getUserIdsArray()
-  await gerFollowing.getUserDocuments()
+  const getFollowing = new GetFollowing(username, "userId")
+  await getFollowing.isUserExist()
+  await getFollowing.getFollowDocuments()
+  getFollowing.getUserIdsArray()
+  await getFollowing.getUserDocuments()
 
-  const following = gerFollowing.getUsernameFromUserDocuments()
+  const following = getFollowing.getUsernameFromUserDocuments()
   return following
 }
 
