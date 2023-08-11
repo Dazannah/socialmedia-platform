@@ -18,30 +18,32 @@ function Home(props) {
 
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [getFeed, setGetFeed] = useState(true)
+  const [initialLoad, setInitialLoad] = useState(true)
 
   useEffect(() => {
-    async function getPosts() {
-      try {
-        const response = await Axios.get("/get-feed", {
-          headers: {
-            Authorization: `Bearer ${appState.token}`
-          }
-        })
+    if (initialLoad) {
+      async function getPosts() {
+        try {
+          const response = await Axios.get("/get-feed", {
+            headers: {
+              Authorization: `Bearer ${appState.token}`
+            }
+          })
 
-        setPosts(response.data)
-        setGetFeed(false)
-        setIsLoading(false)
-      } catch (err) {
-        const flashMessage = errorHandler(err)
+          setInitialLoad(false)
+          setPosts(response.data)
+          setIsLoading(false)
+        } catch (err) {
+          const flashMessage = errorHandler(err)
 
-        setGetFeed(false)
-        setIsLoading(false)
-        appDispatch(flashMessage)
+          setInitialLoad(false)
+          setIsLoading(false)
+          appDispatch(flashMessage)
+        }
       }
+      getPosts()
     }
-    getPosts()
-  }, [getFeed])
+  }, [])
 
   function whatToDisplay() {
     if (isLoading) {
