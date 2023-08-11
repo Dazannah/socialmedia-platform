@@ -32,7 +32,7 @@ function CreatePost(props) {
       appDispatch(flashMessage)
     } else {
       try {
-        const respone = await Axios.post(
+        await Axios.post(
           "/create-post",
           {
             postTitle,
