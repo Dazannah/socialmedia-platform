@@ -21,7 +21,7 @@ class DatabaseFind {
   }
 
   async findWithQuerry() {
-    return await this.collection.find(this.querry).toArray()
+    return await this.collection.find(this.querry).sort({ postCreateDate: -1 }).toArray()
   }
 
   async findOneWithQuerry() {
