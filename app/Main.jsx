@@ -9,6 +9,8 @@ Axios.defaults.baseURL = "http://localhost:3000/api"
 import StateContext from "./StateContext.jsx"
 import DispatchContext from "./DispatchContext.jsx"
 
+import errorHandler from "./components/helperFunctions/errorHandler.js"
+
 //components
 import LoggedInWrapper from "./components/LoggedInWrapper.jsx"
 import Sidebar from "./components/nav/Sidebar.jsx"
@@ -20,6 +22,7 @@ import FlashMessage from "./components/flashMessage/FlashMessage.jsx"
 import Profile from "./components/Profile.jsx"
 
 function Main() {
+  const [initialLoading, setInitialLoading] = useState(true)
   const initialState = {
     loggedIn: localStorage.getItem("isLoggedIn"),
     token: localStorage.getItem("token"),
@@ -63,6 +66,31 @@ function Main() {
   }
 
   const [state, dispatch] = useImmerReducer(ourReducer, initialState)
+
+  useEffect(() => {
+    if (initialLoading) {
+      async function validateLogin() {
+        try {
+          await Axios.get("/validate-login", {
+            headers: {
+              Authorization: `Bearer ${state.token}`
+            }
+          })
+        } catch (err) {
+          console.log(err)
+          if (err.response.status === 401) {
+            if (err.response.data === "Invalid JSON Web Token.") dispatch({ type: "logout" })
+          } else {
+            const flashMessage = errorHandler(err)
+            dispatch(flashMessage)
+          }
+        }
+      }
+
+      validateLogin()
+      setInitialLoading(false)
+    }
+  }, [])
 
   if (state.loggedIn) {
     return (
