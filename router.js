@@ -16,6 +16,8 @@ router.post("/register-email", registrationController.registerEmail)
 router.post("/login-email", loginController.loginEmail)
 //router.post("/login-cardano", userController.loginCardano)
 
+router.get("/validate-login", loginController.initialValidateLogin)
+
 //protected routes
 router.use(loginController.validateLogin)
 

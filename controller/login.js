@@ -24,7 +24,18 @@ async function validateLogin(req, res, next) {
   }
 }
 
+async function initialValidateLogin(req, res, next) {
+  try {
+    await loginHelperFunction.validateLogin(req.headers.authorization)
+
+    res.json("ok")
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports = {
   validateLogin,
-  loginEmail
+  loginEmail,
+  initialValidateLogin
 }
