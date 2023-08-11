@@ -1,5 +1,6 @@
 const { DatabaseFind } = require("../module/Database")
 const { throwErrorArray } = require("../utils/errors")
+const { getCaseInsensitiveRegex } = require("../utils/regex")
 
 class ValidateEmailRegistration {
   constructor(username, password, passwordRepeate, email) {
@@ -33,7 +34,9 @@ class ValidateEmailRegistration {
   }
 
   async findIfExistUsernameEmail() {
-    const databaseWithQuerry = new DatabaseFind("users", { $or: [{ username: this.username }, { email: this.email }] })
+    const usernameRegex = getCaseInsensitiveRegex(this.username)
+    const emailRegex = getCaseInsensitiveRegex(this.email)
+    const databaseWithQuerry = new DatabaseFind("users", { $or: [{ username: { $regex: usernameRegex } }, { email: { $regex: emailRegex } }] })
     const result = await databaseWithQuerry.findWithQuerry()
 
     if (result.length > 0) this.error.push("This username/e-mail is already in use.")
