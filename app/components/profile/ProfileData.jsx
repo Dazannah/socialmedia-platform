@@ -24,6 +24,7 @@ function ProfileData(props) {
     <div id="profile-data-wrapper">
       <span className="profile-username">{props.user.username}</span>
       <button
+        className="round-corner"
         onClick={() => {
           startFollow()
         }}

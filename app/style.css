@@ -45,6 +45,16 @@ body {
   width: fit-content;
 }
 
+#sidebar nav button {
+  font-size: 110%;
+  margin-top: 5px;
+  width: 100%;
+}
+
+#sidebar nav .logout-button {
+  margin-top: 25px;
+}
+
 #main-content-wrapper {
   display: grid;
   grid-template-columns: 100%;
@@ -263,6 +273,7 @@ a:hover {
 }
 
 .post-wrapper h1 {
+  font-size: 120%;
   grid-column: 1/3;
   grid-row: 1/2;
   justify-self: center;
@@ -279,14 +290,16 @@ a:hover {
   grid-column: 1/2;
   grid-row: 3/4;
   justify-self: center;
-  margin: 10px 0;
+}
+
+.post-wrapper .post-username:hover {
+  color: #4f628e;
 }
 
 .post-wrapper .post-create-date {
   grid-column: 2/3;
   grid-row: 3/4;
   justify-self: center;
-  margin: 10px 0;
 }
 
 .post-wrapper button {
@@ -294,12 +307,10 @@ a:hover {
   grid-row: 4/5;
   justify-self: center;
   margin: 10px 0;
-  border: none;
   background-color: rgba(255, 255, 255, 0);
 }
 
 .post-wrapper button:hover {
-  text-decoration: underline;
   cursor: pointer;
 }
 
@@ -318,6 +329,7 @@ a:hover {
 #create-post-div {
   width: 100%;
   height: fit-content;
+  padding-bottom: 5px;
 }
 
 #make-a-post-button {
@@ -378,6 +390,7 @@ button {
   background-color: white;
   border: solid 1px #162955;
   box-shadow: 1px 2px 2px #4f628e;
+  transition: all 150ms;
 }
 
 button:hover {

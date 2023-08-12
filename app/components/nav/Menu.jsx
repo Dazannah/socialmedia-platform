@@ -11,13 +11,13 @@ function Menu(props) {
   return (
     <nav key="main-menu">
       <Link key="home-button" to="/">
-        Home
+        <button className="round-corner">Home</button>
       </Link>
       <Link key="profile-button" to={"/profile/" + appState.username}>
-        Profile
+        <button className="round-corner">Profile</button>
       </Link>
       <Link key="logout-button" onClick={() => appDispatch({ type: "logout" })}>
-        Logout
+        <button className="round-corner logout-button">Logout</button>
       </Link>
     </nav>
   )

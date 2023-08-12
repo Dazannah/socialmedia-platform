@@ -37,7 +37,7 @@ function Post(props) {
         </Link>
         <span className="post-create-date">Posted: {convertDate(post.postCreateDate)}</span>
 
-        <button className="post-watch-comments">Show comments</button>
+        <button className="post-watch-comments round-corner">Show comments</button>
       </div>
     )
   }
