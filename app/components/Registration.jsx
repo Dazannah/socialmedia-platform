@@ -104,7 +104,7 @@ function Registration(props) {
           </div>
           <div className="relative">
             <label id="register-passwordRepeate-label" htmlFor="register-passwordRepeate" className="register-label register-label-starter">
-              Repeate password
+              Repeat password
             </label>
             <input type="password" name="passwordRepeate" id="register-passwordRepeate" className="register-input round-corner" onFocus={e => handleFocus(e)} onChange={e => setPasswordRepeate(e.target.value)} onBlur={e => handleFocusLost(e)} />
           </div>

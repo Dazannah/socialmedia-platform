@@ -78,14 +78,16 @@ function CreatePost(props) {
 
   return (
     <div id="create-post-div">
-      <button id="make-a-post-button" type="button" onClick={() => showPostInput()}>
+      <button id="make-a-post-button" className="round-corner" type="button" onClick={() => showPostInput()}>
         Make a post
       </button>
 
       <div id="post-input-wrapper" className="display-none">
-        <input id="post-title" type="text" placeholder="Title..." onChange={e => setPostTitle(e.target.value)} />
-        <textarea id="post-body" type="text" placeholder="Post text..." onChange={e => setPostBody(e.target.value)} />
-        <button onClick={() => sendPost()}>Submit post</button>
+        <input id="post-title" className="round-corner" type="text" placeholder="Title..." onChange={e => setPostTitle(e.target.value)} />
+        <textarea id="post-body" className="round-corner" type="text" placeholder="Post text..." onChange={e => setPostBody(e.target.value)} />
+        <button className="round-corner" onClick={() => sendPost()}>
+          Submit post
+        </button>
       </div>
     </div>
   )
