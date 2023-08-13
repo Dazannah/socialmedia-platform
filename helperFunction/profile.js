@@ -28,14 +28,21 @@ async function getFollowing(data) {
 }
 
 async function getUserProfile(data) {
+  const requesterUsername = data.body.username
   const username = data.params.username
 
-  const getProfile = new GetProfile(username)
+  const getProfile = new GetProfile(username, requesterUsername)
   await getProfile.isValidUsername()
   await getProfile.getUserPosts()
   getProfile.isThereAnyPost()
   getProfile.changeAuthorFieldToUsername()
-  const dataTosend = getProfile.serializeDataToSend()
+
+  const followers = await getFollowers(data)
+  const following = await getFollowing(data)
+
+  getProfile.serializeDataToSend(followers, following)
+
+  const dataTosend = getProfile.isFollowed()
 
   return dataTosend
 }

@@ -4,8 +4,9 @@ const { getUsernameRegex } = require("../utils/regex")
 const { throwErrorArray } = require("../utils/errors")
 
 class GetProfile {
-  constructor(username) {
+  constructor(username, requesterUsername) {
     this.username = username
+    this.requesterUsername = requesterUsername
     this.userData
     this.error = []
   }
@@ -36,12 +37,27 @@ class GetProfile {
     })
   }
 
-  serializeDataToSend() {
+  serializeDataToSend(followers, following) {
     const userDataToSend = {}
     userDataToSend.username = this.userData.username
-    this.posts.push(userDataToSend)
+    userDataToSend.followers = followers
+    userDataToSend.following = following
+    userDataToSend.isFollowed = false
+    this.profileData = this.posts
+    this.profileData.push(userDataToSend)
+  }
 
-    return this.posts
+  isFollowed() {
+    const requesterUsernameRegex = getUsernameRegex(this.requesterUsername)
+
+    this.profileData[this.profileData.length - 1].followers.forEach(follower => {
+      if (requesterUsernameRegex.test(follower)) {
+        this.profileData[this.profileData.length - 1].isFollowed = true
+        return
+      }
+    })
+
+    return this.profileData
   }
 }
 
