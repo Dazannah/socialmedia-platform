@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 
 import Axios from "axios"
 
@@ -6,6 +6,10 @@ import StateContext from "../../StateContext.jsx"
 
 function ProfileData(props) {
   const appState = useContext(StateContext)
+
+  const [isFollowed, setIsFollowed] = useState(props.user.isFollowed)
+  const followers = props.user.followers
+  const following = props.user.following
 
   async function startFollow() {
     try {
@@ -18,11 +22,45 @@ function ProfileData(props) {
           }
         }
       )
+      setIsFollowed(true)
+    } catch (err) {}
+  }
+
+  async function stopFollow() {
+    try {
+      await Axios.delete(`/stop-follow/${props.user.username}`, {
+        headers: {
+          Authorization: `Bearer ${appState.token}`
+        }
+      })
+
+      setIsFollowed(false)
     } catch (err) {}
   }
 
   function showFollowButton() {
-    if (appState.username != props.user.username) {
+    const usernameRegex = new RegExp(`^${appState.username}$`, "i")
+
+    if (!usernameRegex.test(props.user.username)) {
+      return isUserFollowed()
+    }
+  }
+
+  function isUserFollowed() {
+    if (isFollowed) {
+      return (
+        <>
+          <button
+            className="round-corner"
+            onClick={() => {
+              stopFollow()
+            }}
+          >
+            Stop Follow
+          </button>
+        </>
+      )
+    } else {
       return (
         <>
           <button
@@ -31,7 +69,7 @@ function ProfileData(props) {
               startFollow()
             }}
           >
-            Follow
+            Start Follow
           </button>
         </>
       )
@@ -40,8 +78,13 @@ function ProfileData(props) {
 
   return (
     <div id="profile-data-wrapper">
-      <span className="profile-username">{props.user.username}</span>
-      {showFollowButton()}
+      <span className="profile-username">
+        {props.user.username}
+        {isFollowed ? " You are following" : ""}
+        {showFollowButton()}
+        {`Followers: ${followers.length}`}
+        {`Following: ${following.length}`}
+      </span>
     </div>
   )
 }
