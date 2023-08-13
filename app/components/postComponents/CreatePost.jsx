@@ -79,7 +79,7 @@ function CreatePost(props) {
   return (
     <div id="create-post-div">
       <button id="make-a-post-button" className="round-corner" type="button" onClick={() => showPostInput()}>
-        Make a post
+        Create a post
       </button>
 
       <div id="post-input-wrapper" className="display-none">
