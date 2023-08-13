@@ -20,17 +20,28 @@ function ProfileData(props) {
       )
     } catch (err) {}
   }
+
+  function showFollowButton() {
+    if (appState.username != props.user.username) {
+      return (
+        <>
+          <button
+            className="round-corner"
+            onClick={() => {
+              startFollow()
+            }}
+          >
+            Follow
+          </button>
+        </>
+      )
+    }
+  }
+
   return (
     <div id="profile-data-wrapper">
       <span className="profile-username">{props.user.username}</span>
-      <button
-        className="round-corner"
-        onClick={() => {
-          startFollow()
-        }}
-      >
-        Follow
-      </button>
+      {showFollowButton()}
     </div>
   )
 }
