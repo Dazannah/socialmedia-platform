@@ -22,13 +22,12 @@ async function registrationWithEmail(body) {
   const dataToSave = serializeEmailRegistration.prepareDataToSave()
 
   const databaseSave = new DatabaseSave("users", dataToSave)
-  await databaseSave.saveOne()
+  const savedUser = await databaseSave.saveOne()
 
-  const emailVerification = new EmailVerification(validate.email, validate.username)
-  emailVerification.generateRandomString()
-  //generate link
-  //save link in database
-  //send email with link
+  const emailVerification = new EmailVerification(validate.email, validate.username, savedUser.insertedId.toString())
+  await emailVerification.createVerifyId()
+  emailVerification.generateEmail()
+  await emailVerification.sendEmail()
 }
 
 module.exports = {
