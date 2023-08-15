@@ -19,6 +19,12 @@ function SinglePost(props) {
   const [postData, setPostData] = useState()
 
   const { postId } = useParams()
+  const [previousPostId, setPreviousPostId] = useState(postId)
+
+  if (previousPostId != postId) {
+    setInitialLoad(true)
+    setPreviousPostId(postId)
+  }
 
   useEffect(() => {
     if (initialLoad) {
