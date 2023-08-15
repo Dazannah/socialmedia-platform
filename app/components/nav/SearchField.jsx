@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import Axios from "axios"
+import { Link } from "react-router-dom"
 
 import StateContext from "../../StateContext.jsx"
 
@@ -10,14 +11,16 @@ function SearchField(props) {
   const [displayResult, setDisplayResult] = useState(false)
   const [searchResult, setSearchResult] = useState([])
 
-  function togleSearchResult() {
+  function openSearchResult() {
     const searchResult = document.getElementById("search-result")
 
-    if (searchResult.classList.contains("display-none")) {
-      searchResult.classList.remove("display-none")
-    } else {
-      searchResult.classList.add("display-none")
-    }
+    searchResult.classList.remove("display-none")
+  }
+
+  function closeSearchResult(target) {
+    console.log(target)
+    const searchResult = document.getElementById("search-result")
+    searchResult.classList.add("display-none")
   }
 
   async function handleSearch(searchText) {
@@ -52,9 +55,8 @@ function SearchField(props) {
           }
         }
       )
-
       setSearchResult(response.data)
-      shouldDisplayResult(searchResult)
+      shouldDisplayResult(response.data)
     } catch (err) {}
   }
 
@@ -65,15 +67,32 @@ function SearchField(props) {
   }
 
   function displaySearchResult() {
-    console.log(searchResult, displayResult)
+    return (
+      <>
+        {searchResult.map(post => {
+          return (
+            <div id={post._id} key={post._id + "key"}>
+              <Link to={"/post/" + post._id}>
+                <button className="round-corner">
+                  {" "}
+                  {post.postTitle.slice(0, 25)}
+                  <br />
+                  {new Date(post.postCreateDate).toLocaleString()}
+                </button>
+              </Link>
+            </div>
+          )
+        })}
+      </>
+    )
   }
 
   return (
     <div id="search-wrapper-div">
-      <input id="search-text" className="round-corner" type="text" name="searchField" placeholder="Search posts" autoComplete="off" onBlur={() => togleSearchResult()} onClick={() => togleSearchResult()} onChange={e => handleSearch(e.target.value)} />
-      <div id="search-result" className="display-none">
+      <input id="search-text" className="round-corner" type="text" name="searchField" placeholder="Search posts" autoComplete="off" onBlur={e => closeSearchResult(e.target)} onClick={() => openSearchResult()} onChange={e => handleSearch(e.target.value)} />
+      <div id="search-result" className="round-corner display-none">
         {" "}
-        {displayResult ? displaySearchResult() : `Type something to find posts.`}
+        {displayResult ? displaySearchResult() : `Type to find posts.`}
       </div>
     </div>
   )
