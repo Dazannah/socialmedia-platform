@@ -22,6 +22,12 @@ function Profile(props) {
 
   const [userProfile, setUserProfile] = useState()
   const [userPosts, setUserPosts] = useState()
+  const [previousProfile, setPreviousProfile] = useState(username)
+
+  if (previousProfile != username) {
+    setInitalLoad(true)
+    setPreviousProfile(username)
+  }
 
   useEffect(() => {
     if (initalLoad) {
@@ -45,7 +51,7 @@ function Profile(props) {
       }
       getProfile()
     }
-  }, [])
+  }, [initalLoad])
 
   if (isLoading) {
     return <Page title={username}>Loading...</Page>
