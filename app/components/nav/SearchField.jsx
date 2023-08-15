@@ -11,14 +11,28 @@ function SearchField(props) {
   const [displayResult, setDisplayResult] = useState(false)
   const [searchResult, setSearchResult] = useState([])
 
+  useEffect(() => {
+    function handleClickOutsideBox(event) {
+      const wrapperDiv = document.getElementById("search-wrapper-div")
+      const resultsDiv = document.getElementById("search-result")
+
+      if (!wrapperDiv.contains(event.target)) {
+        resultsDiv.classList.add("display-none")
+      }
+    }
+
+    document.addEventListener("click", handleClickOutsideBox)
+
+    return () => document.removeEventListener("click", handleClickOutsideBox)
+  }, [])
+
   function openSearchResult() {
     const searchResult = document.getElementById("search-result")
 
     searchResult.classList.remove("display-none")
   }
 
-  function closeSearchResult(target) {
-    console.log(target)
+  function closeSearchResult() {
     const searchResult = document.getElementById("search-result")
     searchResult.classList.add("display-none")
   }
@@ -73,7 +87,7 @@ function SearchField(props) {
           return (
             <div id={post._id} key={post._id + "key"}>
               <Link to={"/post/" + post._id}>
-                <button className="round-corner">
+                <button onClick={() => closeSearchResult()} className="round-corner">
                   {" "}
                   {post.postTitle.slice(0, 25)}
                   <br />
@@ -89,7 +103,7 @@ function SearchField(props) {
 
   return (
     <div id="search-wrapper-div">
-      <input id="search-text" className="round-corner" type="text" name="searchField" placeholder="Search posts" autoComplete="off" onBlur={e => closeSearchResult(e.target)} onClick={() => openSearchResult()} onChange={e => handleSearch(e.target.value)} />
+      <input id="search-text" className="round-corner" type="text" name="searchField" placeholder="Search posts" autoComplete="off" onClick={() => openSearchResult()} onChange={e => handleSearch(e.target.value)} />
       <div id="search-result" className="round-corner display-none">
         {" "}
         {displayResult ? displaySearchResult() : `Type to find posts.`}
