@@ -21,9 +21,9 @@ function SearchField(props) {
       }
     }
 
-    document.addEventListener("click", handleClickOutsideBox)
+    document.addEventListener("mousedown", handleClickOutsideBox)
 
-    return () => document.removeEventListener("click", handleClickOutsideBox)
+    return () => document.removeEventListener("mousedown", handleClickOutsideBox)
   }, [])
 
   function openSearchResult() {
@@ -103,7 +103,7 @@ function SearchField(props) {
 
   return (
     <div id="search-wrapper-div">
-      <input id="search-text" className="round-corner" type="text" name="searchField" placeholder="Search posts" autoComplete="off" onClick={() => openSearchResult()} onChange={e => handleSearch(e.target.value)} />
+      <input id="search-text" className="round-corner" type="text" name="searchField" placeholder="Search posts" autoComplete="off" onMouseDown={() => openSearchResult()} onChange={e => handleSearch(e.target.value)} />
       <div id="search-result" className="round-corner display-none">
         {" "}
         {displayResult ? displaySearchResult() : `Type to find posts.`}
