@@ -16,7 +16,7 @@ class VerificationEmail {
   }
 
   async createVerifyId() {
-    const databaseSave = new DatabaseSave("emailVerification", { username: this.username })
+    const databaseSave = new DatabaseSave("emailVerification", { username: this.username, createdAt: new Date() })
     this.verifyId = await databaseSave.saveOne()
   }
 
@@ -30,7 +30,8 @@ class VerificationEmail {
           {
             ContentType: "HTML",
             Charset: "utf-8",
-            Content: `Your verification link is: <a href="https://socialmedia.davidfabian.hu/verification/${this.verifyId.insertedId.toString()}">Click here to verify your new account.</a>`
+            Content: `Your verification link: <a href="https://socialmedia.davidfabian.hu/verification/${this.verifyId.insertedId.toString()}">Click here to verify your new account.</a><br>
+            The link will expire after 48 hours.`
           }
         ],
         From: "verification@davidfabian.hu",
