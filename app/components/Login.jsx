@@ -25,6 +25,7 @@ function Login(props) {
         })
 
         localStorage.setItem("token", response.data.token)
+        appDispatch({ type: "setToken", value: response.data.token })
         appDispatch({ type: "login" })
 
         localStorage.setItem("username", response.data.username)

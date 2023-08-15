@@ -33,6 +33,9 @@ function Main() {
 
   function ourReducer(draft, action) {
     switch (action.type) {
+      case "setToken":
+        draft.token = action.value
+        return
       case "login":
         localStorage.setItem("isLoggedIn", true)
         draft.loggedIn = true
@@ -77,6 +80,7 @@ function Main() {
             }
           })
         } catch (err) {
+          console.log(err)
           if (err.response.status === 401) {
             if (err.response.data === "Invalid JSON Web Token.") dispatch({ type: "logout" })
           } else {
